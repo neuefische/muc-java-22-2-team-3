@@ -15,9 +15,7 @@ export default function BookCard(props:BookCardProps){
     function getBookIDOnClick(){
         props.getBookByIDFunction(props.book.id!)
     }
-    function deleteBook(){
-        props.deleteBook(props.book.id!)
-    }
+
 
     return(
         <div>
@@ -27,7 +25,7 @@ export default function BookCard(props:BookCardProps){
             {props.book.title}
             <button onClick={deleteBook}>Delete</button>
             <button onClick={getBookIDOnClick}>Details</button>
-            <button onClick={deleteBook}>Delete</button>
+            
         </div>
 
     )
