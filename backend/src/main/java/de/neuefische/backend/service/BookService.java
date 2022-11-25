@@ -12,6 +12,7 @@ public class BookService {
     private BookRepository bookRepository;
 
 
+
     public BookService(BookRepository bookRepo){
         this.bookRepository = bookRepo;
     }
@@ -21,7 +22,11 @@ public class BookService {
     }
 
     public Book addBookToList(Book newBook){
-        return bookRepository.addBookToList(newBook);
+        IDGenerator idGenerator = new IDGenerator();
+        String id = idGenerator.generateID();
+        Book book1 = new Book(id, newBook.getTitle(), newBook.getAuthor(), newBook.getIsbn());
+        return bookRepository.addBookToList(book1);
+
     }
 
 
