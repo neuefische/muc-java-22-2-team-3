@@ -15,6 +15,14 @@ const [bookList,setBookList]=useState<BookData[]>([])
     axios.get("books").then(response=>response.data).then(data=>setBookList(data))
 
  }
+ function addBook(newBook: BookData){
+    axios.post("books", newBook).then(savedBook =>{
+        setBookList((prevState)=>{
+            return [...prevState, savedBook.data]
+        })
+    })
+        .catch(console.error)
+ }
 
     const filteredBook = (id: string): BookData[] => {
         return bookList.filter(book => {
@@ -46,6 +54,9 @@ const [bookList,setBookList]=useState<BookData[]>([])
         })
     }
     return (
+ 
+
+      
 
 
         <section>
