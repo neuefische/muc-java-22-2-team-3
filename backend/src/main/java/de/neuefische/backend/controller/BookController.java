@@ -36,7 +36,15 @@ public class BookController {
         return bookService.getBookByID(id);
     }
 
+    @GetMapping("by_keyword/{keyword}")
+    public Book getBookByKeyword(@PathVariable String keyword){
+        return  bookService.getBookByKeyword(keyword);
+    }
 
+    @GetMapping("by_isbn/{isbn}")
+    public Book getBookByISBN(@PathVariable String isbn){
+        return  bookService.getBookByISBN(isbn);
+    }
 
 
 }

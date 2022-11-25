@@ -54,5 +54,13 @@ public class BookService {
         return bookRepository.getBookByID(id);
     }
 
+    public Book getBookByKeyword(String keyword){
+        return bookRepository.getBookByKeyword(keyword);
+    }
+
+    public Book getBookByISBN(String isbn){
+        return bookRepository.getBookByISBN(isbn);
+    }
+
 
 }
