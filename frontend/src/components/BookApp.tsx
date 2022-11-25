@@ -21,10 +21,19 @@ const [bookList,setBookList]=useState<BookData[]>([])
     })
         .catch(console.error)
  }
+ 
+ function deleteBook(deletedId: string){
+    axios.delete("books" + deletedId)
+        .then(()=>{
+            const newList = bookList.filter((book: BookData)=>
+            book.id!==deletedId)
+            setBookList(newList)
+        })
+    }
     return (
         <section>
             <h1>Bibliothek</h1>
-            <BookList bookList={bookList}/>
+            <BookList bookList={bookList} deleteBook={deleteBook}/>
             <AddBook addBook={addBook} />
 
         </section>
