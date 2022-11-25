@@ -5,14 +5,13 @@ type BookListProps={
     bookList:BookData[]
 }
 export default function BookList(props:BookListProps){
-    function getBookList(){
-        return props.bookList.map((book)=>{
-            return <BookCard book={book}></BookCard>
-        })
-    }
+    const getBookList=
+         props.bookList.map((book)=>{
+            return <BookCard book={book}></BookCard>})
+
     return(
         <div>
-            {getBookList()}
+            {getBookList}
 
         </div>
     )
