@@ -34,6 +34,19 @@ class BookServiceTest {
         assertEquals(newBook, result);
     }
 
+    @Test
+    void test_getBookByID(){
+        String id = (new IDGenerator()).generateID();
+
+        Book newBook = new Book(id, "","","");
+
+        when(bookService.getBookByID(id)).thenReturn(newBook);
+
+        Book result = bookService.getBookByID(id);
+
+        assertEquals(newBook, result);
+    }
+
 
 
 

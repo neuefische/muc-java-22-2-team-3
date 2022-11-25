@@ -24,6 +24,16 @@ public class BookRepository {
         return newBook;
     }
 
+    public Book getBookByID(String id){
+        for(Book book: bookList){
+            if(book.getId().equals(id)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+
     public boolean deleteBook(String id) {
         for (Book book: bookList) {
             if(book.getId().equals(id)){

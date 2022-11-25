@@ -9,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -84,5 +88,24 @@ ObjectMapper objectMapper;
             .andExpect(status().isOk());
 
 
+    }
+
+    @Test
+    void test_getBookByID() throws Exception{
+        String id = "123";
+        Book newBook = new Book(id, "me", "Java" , "isbn");
+
+        bookRepository.addBookToList(newBook);
+
+        mockMvc.perform(get("/books/" + id))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    {
+                        "id": "123",
+                        "title": "me",
+                        "author": "Java",
+                        "isbn": "isbn"
+                    }
+                    """));
     }
 }
