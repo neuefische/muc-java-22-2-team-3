@@ -2,6 +2,7 @@ import BookList from "./BookList";
 import {useEffect, useState} from "react";
 import {BookData} from "../model/BookData";
 import axios from "axios";
+import AddBook from "./AddBook";
 
 export default function BookApp() {
 const [bookList,setBookList]=useState<BookData[]>([])
@@ -12,7 +13,21 @@ const [bookList,setBookList]=useState<BookData[]>([])
     axios.get("books").then(response=>response.data).then(data=>setBookList(data))
 
  }
+ function addBook(newBook: BookData){
+    axios.post("books", newBook).then(savedBook =>{
+        setBookList((prevState)=>{
+            return [...prevState, savedBook.data]
+        })
+    })
+        .catch(console.error)
+ }
     return (
-        <BookList bookList={bookList}/>
+        <section>
+            <h1>Bibliothek</h1>
+            <BookList bookList={bookList}/>
+            <AddBook addBook={addBook} />
+
+        </section>
+
     )
 }
