@@ -72,10 +72,12 @@ class BookServiceTest {
         String keyword = "a";
 
         Book newBook = new Book("id", "aaaaaa","","");
+        List<Book> newList = new ArrayList<>();
+        newList.add(newBook);
 
-        when(bookService.getBookByKeyword(keyword)).thenReturn(newBook);
+        when(bookService.getBookByKeyword(keyword)).thenReturn(newList);
 
-        Book result = bookService.getBookByKeyword(keyword);
+        List<Book> result = bookService.getBookByKeyword(keyword);
 
         assertEquals(newBook, result);
     }
