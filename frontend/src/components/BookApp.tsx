@@ -6,13 +6,28 @@ import AddBook from "./AddBook";
 
 export default function BookApp() {
 const [bookList,setBookList]=useState<BookData[]>([])
+
     useEffect(() => {
         getAllBooks()
     },[])
+
  function getAllBooks() {
     axios.get("books").then(response=>response.data).then(data=>setBookList(data))
 
  }
+
+    const filteredBook = (id: string): BookData[] => {
+        return bookList.filter(book => {
+            return book.id === id
+        })
+    }
+
+ function getBookByID(id: string){
+    if(id){
+        setBookList(filteredBook(id))
+    }
+ }
+
  function addBook(newBook: BookData){
     axios.post("books", newBook).then(savedBook =>{
         setBookList((prevState)=>{
@@ -31,9 +46,11 @@ const [bookList,setBookList]=useState<BookData[]>([])
         })
     }
     return (
+
+
         <section>
             <h1>Bibliothek</h1>
-            <BookList bookList={bookList} deleteBook={deleteBook}/>
+            <BookList bookList={bookList} deleteBook={deleteBook} getBookByIDInBookList={getBookByID}/>
             <AddBook addBook={addBook} />
 
         </section>
