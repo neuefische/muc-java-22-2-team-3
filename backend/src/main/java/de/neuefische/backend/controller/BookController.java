@@ -25,6 +25,12 @@ public class BookController {
         return bookService.addBookToList(newBook);
     }
 
+    @DeleteMapping("{id}")
+    public boolean deleteBook(@RequestBody @PathVariable String id){
+        return bookService.deleteBook(id);
+
+
+    }
     @GetMapping("/{id}")
     public Book getBookByID(@PathVariable String id){
         return bookService.getBookByID(id);
