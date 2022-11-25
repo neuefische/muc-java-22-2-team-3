@@ -4,7 +4,6 @@ type BookCardProps={
     book:BookData,
     deleteBook(id: string): void
     getBookByIDFunction: (id: string ) => void
-    deleteBook(id: string): void
 
 }
 export default function BookCard(props:BookCardProps){
