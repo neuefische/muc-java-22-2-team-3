@@ -26,16 +26,6 @@ public class BookService {
         String id = idGenerator.generateID();
         Book book1 = new Book(id, newBook.getTitle(), newBook.getAuthor(), newBook.getIsbn());
         return bookRepository.addBookToList(book1);
-
-        IDGenerator idGenerator = new IDGenerator();
-        String id = idGenerator.generateID();
-        Book book1 = new Book(id, newBook.getTitle(), newBook.getAuthor(), newBook.getIsbn());
-        return bookRepository.addBookToList(book1);
-
-    }
-    public boolean deleteBook(String id){
-
-        return bookRepository.deleteBook(id);
     }
     public boolean deleteBook(String id){
 
@@ -46,15 +36,8 @@ public class BookService {
         return bookRepository.getBookByID(id);
     }
 
-    public Book getBookByID(String id){
-        return bookRepository.getBookByID(id);
-    }
 
-    public Book getBookByID(String id){
-        return bookRepository.getBookByID(id);
-    }
-
-    public Book getBookByKeyword(String keyword){
+    public List<Book> getBookByKeyword(String keyword){
         return bookRepository.getBookByKeyword(keyword);
     }
 

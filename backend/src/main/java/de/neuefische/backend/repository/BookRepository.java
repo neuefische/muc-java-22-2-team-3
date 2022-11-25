@@ -42,13 +42,14 @@ public class BookRepository {
         return null;
     }
 
-    public Book getBookByKeyword(String keyword){
+    public List<Book> getBookByKeyword(String keyword){
+        List<Book> findedBooks = new ArrayList<>();
         for(Book book: bookList){
             if(book.getTitle().matches(keyword)){
-                return book;
+                findedBooks.add(book);
             }
         }
-        return null;
+        return findedBooks;
     }
 
     public Book getBookByISBN(String isbn){

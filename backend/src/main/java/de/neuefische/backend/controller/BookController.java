@@ -25,26 +25,24 @@ public class BookController {
         return bookService.addBookToList(newBook);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public boolean deleteBook(@RequestBody @PathVariable String id){
         return bookService.deleteBook(id);
-
-
     }
+
     @GetMapping("/{id}")
     public Book getBookByID(@PathVariable String id){
         return bookService.getBookByID(id);
     }
 
-    @GetMapping("by_keyword/{keyword}")
-    public Book getBookByKeyword(@PathVariable String keyword){
+    @GetMapping("by_keyword/")
+    public List<Book> getBookByKeyword(@RequestParam String keyword){
         return  bookService.getBookByKeyword(keyword);
     }
 
-    @GetMapping("by_isbn/{isbn}")
-    public Book getBookByISBN(@PathVariable String isbn){
+    @GetMapping("by_isbn/")
+    public Book getBookByISBN(@RequestParam String isbn){
         return  bookService.getBookByISBN(isbn);
     }
-
 
 }
