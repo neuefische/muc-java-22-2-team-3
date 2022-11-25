@@ -28,6 +28,10 @@ public class BookService {
         return bookRepository.addBookToList(book1);
 
     }
+    public boolean deleteBook(String id){
+
+        return bookRepository.deleteBook(id);
+    }
 
 
 }
