@@ -107,4 +107,46 @@ ObjectMapper objectMapper;
                     """));
     }
 
+
+    @Test
+    void test_getBookByKeyword() throws Exception{
+        String keyword = "me";
+        Book newBook = new Book("123", "me", "Java" , "isbn");
+
+        bookRepository.addBookToList(newBook);
+
+        mockMvc.perform(get("/books/by_keyword/" + keyword))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    {
+                        "id": "123",
+                        "title": "me",
+                        "author": "Java",
+                        "isbn": "isbn"
+                    }
+                    """));
+    }
+
+    @Test
+    void test_getBookByISBN() throws Exception{
+        String isbn = "isbn";
+        Book newBook = new Book("123", "me", "Java" , "isbn");
+
+        bookRepository.addBookToList(newBook);
+
+        mockMvc.perform(get("/books/by_isbn/" + isbn))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    {
+                        "id": "123",
+                        "title": "me",
+                        "author": "Java",
+                        "isbn": "isbn"
+                    }
+                    """));
+    }
+
+
+
+
 }

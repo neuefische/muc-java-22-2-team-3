@@ -42,6 +42,26 @@ public class BookRepository {
         return null;
     }
 
+    public Book getBookByKeyword(String keyword){
+        for(Book book: bookList){
+            if(book.getTitle().matches(keyword)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+    public Book getBookByISBN(String isbn){
+        for(Book book: bookList){
+            if(book.getIsbn().equals(isbn)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+
+
 
 
 }

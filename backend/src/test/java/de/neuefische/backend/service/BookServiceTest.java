@@ -66,4 +66,31 @@ class BookServiceTest {
     }
 
 
+
+    @Test
+    void test_getBookByKeyword(){
+        String keyword = "a";
+
+        Book newBook = new Book("id", "aaaaaa","","");
+
+        when(bookService.getBookByKeyword(keyword)).thenReturn(newBook);
+
+        Book result = bookService.getBookByKeyword(keyword);
+
+        assertEquals(newBook, result);
+    }
+
+    @Test
+    void test_getBookByISBN(){
+        String isbn= "isbn";
+
+        Book newBook = new Book("id", "aaaaaa","","isbn");
+
+        when(bookService.getBookByISBN(isbn)).thenReturn(newBook);
+
+        Book result = bookService.getBookByISBN(isbn);
+
+        assertEquals(newBook, result);
+    }
+
 }
