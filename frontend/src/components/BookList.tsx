@@ -2,6 +2,8 @@ import React from "react";
 import {BookData} from "../model/BookData";
 import BookCard from "./BookCard";
 type BookListProps={
+    bookList:BookData[],
+    deleteBook(id: string): void
     bookList:BookData[]
     getBookByIDInBookList: (id: string) => void
     bookList:BookData[],
@@ -10,6 +12,7 @@ type BookListProps={
 export default function BookList(props:BookListProps){
     const getBookList=
          props.bookList.map((book)=>{
+            return <BookCard book={book} deleteBook={props.deleteBook}></BookCard>})
              if(book.id){
                  return <BookCard book={book} getBookByIDFunction={props.getBookByIDInBookList} key={book.id} ></BookCard > ;}
              }

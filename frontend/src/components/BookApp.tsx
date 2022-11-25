@@ -23,6 +23,15 @@ const [bookList,setBookList]=useState<BookData[]>([])
     })
         .catch(console.error)
  }
+ 
+ function deleteBook(deletedId: string){
+    axios.delete("books" + deletedId)
+        .then(()=>{
+            const newList = bookList.filter((book: BookData)=>
+            book.id!==deletedId)
+            setBookList(newList)
+        })
+    }
 
     const filteredBook = (id: string): BookData[] => {
         return bookList.filter(book => {
@@ -36,23 +45,7 @@ const [bookList,setBookList]=useState<BookData[]>([])
     }
  }
 
- function addBook(newBook: BookData){
-    axios.post("books", newBook).then(savedBook =>{
-        setBookList((prevState)=>{
-            return [...prevState, savedBook.data]
-        })
-    })
-        .catch(console.error)
- }
- 
- function deleteBook(deletedId: string){
-    axios.delete("books" + deletedId)
-        .then(()=>{
-            const newList = bookList.filter((book: BookData)=>
-            book.id!==deletedId)
-            setBookList(newList)
-        })
-    }
+
     return (
  
 
@@ -62,9 +55,12 @@ const [bookList,setBookList]=useState<BookData[]>([])
         <section>
             <h1>Bibliothek</h1>
             <BookList bookList={bookList} deleteBook={deleteBook} getBookByIDInBookList={getBookByID}/>
+            
             <AddBook addBook={addBook} />
 
         </section>
+
+      
 
     )
 }

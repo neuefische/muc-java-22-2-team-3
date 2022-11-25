@@ -1,13 +1,17 @@
 import {BookData} from "../model/BookData";
 import React from "react";
 type BookCardProps={
-    book:BookData
+    book:BookData,
+    deleteBook(id: string): void
     getBookByIDFunction: (id: string ) => void
     deleteBook(id: string): void
 
 }
 export default function BookCard(props:BookCardProps){
 
+    function deleteBook(){
+        props.deleteBook(props.book.id!)
+    }
     function getBookIDOnClick(){
         props.getBookByIDFunction(props.book.id!)
     }
@@ -21,6 +25,7 @@ export default function BookCard(props:BookCardProps){
             {props.book.author}
             {props.book.isbn}
             {props.book.title}
+            <button onClick={deleteBook}>Delete</button>
             <button onClick={getBookIDOnClick}>Details</button>
             <button onClick={deleteBook}>Delete</button>
         </div>
