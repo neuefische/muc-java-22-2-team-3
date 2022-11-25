@@ -43,13 +43,5 @@ public class BookRepository {
     }
 
 
-    public boolean deleteBook(String id) {
-        for (Book book: bookList) {
-            if(book.getId().equals(id)){
-                return bookList.remove(book);
-            }
 
-        }
-        return false;
-    }
 }
