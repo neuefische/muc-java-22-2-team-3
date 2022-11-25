@@ -24,5 +24,9 @@ public class BookService {
         return bookRepository.addBookToList(newBook);
     }
 
+    public Book getBookByID(String id){
+        return bookRepository.getBookByID(id);
+    }
+
 
 }
