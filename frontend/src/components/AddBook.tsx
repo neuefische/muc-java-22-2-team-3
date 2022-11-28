@@ -15,17 +15,16 @@ export default function AddBook(props: AddBookProps){
         setNewBookTitle(event.target.value)
     }
     const newBookAuthorInput = (event:ChangeEvent<HTMLInputElement>)=>{
-        setNewBookTitle(event.target.value)
+        setNewBookAuthor(event.target.value)
     }
     const newBookIsbnInput = (event:ChangeEvent<HTMLInputElement>)=>{
-        setNewBookTitle(event.target.value)
+        setNewBookIsbn(event.target.value)
     }
     function addBook(){
         const newBook: BookData = {
             title: newBookTitle,
             author: newBookAuthor,
             isbn: newBookIsbn
-            
         }
         props.addBook(newBook)
     }

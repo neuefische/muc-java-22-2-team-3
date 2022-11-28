@@ -19,7 +19,7 @@ export default function SearchForAuthor(props: SearchForAuthorProps){
     return(
         <>
             Author name:
-            <input onChange={getInputFieldValue} value={""}/>
+            <input onChange={getInputFieldValue} name={inputValue} value={inputValue}/>
             <button onClick={setInputFieldValue}>search</button>
         </>
     )
