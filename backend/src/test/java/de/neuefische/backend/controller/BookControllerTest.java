@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.repository.BookRepository;
+import de.neuefische.backend.service.IDGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,6 +21,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 class BookControllerTest {
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    IDGenerator idGenerator;
 
     @Autowired
     BookRepository bookRepository;
@@ -45,6 +49,7 @@ ObjectMapper objectMapper;
 """));
     }
 
+    @DirtiesContext
     @Test
     void test_addToBookList() throws Exception{
         Book newBook = new Book("123", "me", "Java" , "isbn");
@@ -53,7 +58,6 @@ ObjectMapper objectMapper;
 
         mockMvc.perform(post("/books").contentType(MediaType.APPLICATION_JSON).content("""
 {
-"id": "123",
 "title": "me",
 "author": "Java",
 "isbn": "isbn"
@@ -62,7 +66,6 @@ ObjectMapper objectMapper;
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
 {
-"id": "123",
 "title": "me",
 "author": "Java",
 "isbn": "isbn"
@@ -88,6 +91,7 @@ ObjectMapper objectMapper;
 
     }
 
+    @DirtiesContext
     @Test
     void test_getBookByID() throws Exception{
         String id = "123";
@@ -115,18 +119,35 @@ ObjectMapper objectMapper;
 
         bookRepository.addBookToList(newBook);
 
-        mockMvc.perform(get("/books/by_isbn/" + isbn))
+        mockMvc.perform(get("/books/by-isbn/?isbn=" + isbn))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     {
+                    "id" : "123",
                         "title": "me",
                         "author": "Java",
                         "isbn": "isbn"
                     }
                     """));
     }
+    @DirtiesContext
+    @Test
+    void test_getBookByKeyword() throws Exception{
+        String keyword = "me";
+        Book newBook = new Book("123", "me", "Java" , "isbn");
 
+        bookRepository.addBookToList(newBook);
 
-
+        mockMvc.perform(get("/books/by-keyword/?keyword=" + keyword))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [{
+                    "id" : "123",
+                        "title": "me",
+                        "author": "Java",
+                        "isbn": "isbn"
+                    }]
+                    """));
+    }
 
 }

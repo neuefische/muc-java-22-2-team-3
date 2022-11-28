@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BookServiceTest {
 
     BookRepository bookRepository = mock(BookRepository.class);
-    BookService bookService = new BookService(bookRepository);
+    IDGenerator idGenerator = mock(IDGenerator.class);
+    BookService bookService = new BookService(idGenerator, bookRepository);
 
     @Test
     void test_getBookList_whenListEmpty() {
         List<Book> emptyList = new ArrayList<>();
-        when(bookService.getBookList()).thenReturn(emptyList);
+        when(bookRepository.getBookList()).thenReturn(emptyList);
 
         List<Book> result = bookService.getBookList();
 
@@ -27,7 +27,7 @@ class BookServiceTest {
     void test_addBookToList() {
 
         Book newBook = new Book();
-        when(bookService.addBookToList(newBook)).thenReturn(newBook);
+        when(bookRepository.addBookToList(newBook)).thenReturn(newBook);
 
         Book result = bookService.addBookToList(newBook);
 
@@ -36,11 +36,11 @@ class BookServiceTest {
 
     @Test
     void test_getBookByID(){
-        String id = (new IDGenerator()).generateID();
+        String id = "123";
 
         Book newBook = new Book(id, "","","");
 
-        when(bookService.getBookByID(id)).thenReturn(newBook);
+        when(bookRepository.getBookByID(id)).thenReturn(newBook);
 
         Book result = bookService.getBookByID(id);
 
@@ -49,15 +49,16 @@ class BookServiceTest {
 
     @Test
     void test_deleteBook() {
+        String id = "123";
 
+        Book newBook = new Book(id, "","","");
+        bookRepository.addBookToList(newBook);
 
-        Book newBook = new Book();
+        when(bookRepository.deleteBook(id)).thenReturn(true);
 
-        when(bookRepository.addBookToList(newBook)).thenReturn(newBook);
-        newBook.setId("1");
-        boolean result = bookService.deleteBook("1");
+        boolean result = bookService.deleteBook(id);
 
-        assertFalse(result);
+        assertTrue(result);
 
     }
 
@@ -69,7 +70,7 @@ class BookServiceTest {
         List<Book> newList = new ArrayList<>();
         newList.add(newBook);
 
-        when(bookService.getBookByKeyword(keyword)).thenReturn(newList);
+        when(bookRepository.getBookByKeyword(keyword)).thenReturn(newList);
 
         List<Book> result = bookService.getBookByKeyword(keyword);
 
@@ -81,8 +82,9 @@ class BookServiceTest {
         String isbn= "isbn";
 
         Book newBook = new Book("id", "aaaaaa","","isbn");
+        bookService.addBookToList(newBook);
 
-        when(bookService.getBookByISBN(isbn)).thenReturn(newBook);
+        when(bookRepository.getBookByISBN(isbn)).thenReturn(newBook);
 
         Book result = bookService.getBookByISBN(isbn);
 
