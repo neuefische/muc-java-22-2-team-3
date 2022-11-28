@@ -38,7 +38,7 @@ class BookServiceTest {
     void test_getBookByID(){
         String id = (new IDGenerator()).generateID();
 
-        Book newBook = new Book("","","");
+        Book newBook = new Book(id, "","","");
 
         when(bookService.getBookByID(id)).thenReturn(newBook);
 
@@ -65,7 +65,7 @@ class BookServiceTest {
     void test_getBookByKeyword(){
         String keyword = "a";
 
-        Book newBook = new Book("aaaaaa","","");
+        Book newBook = new Book("id", "aaaaaa","","");
         List<Book> newList = new ArrayList<>();
         newList.add(newBook);
 
@@ -80,7 +80,7 @@ class BookServiceTest {
     void test_getBookByISBN(){
         String isbn= "isbn";
 
-        Book newBook = new Book("aaaaaa","","isbn");
+        Book newBook = new Book("id", "aaaaaa","","isbn");
 
         when(bookService.getBookByISBN(isbn)).thenReturn(newBook);
 
