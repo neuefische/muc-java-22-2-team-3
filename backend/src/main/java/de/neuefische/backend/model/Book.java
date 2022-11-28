@@ -10,8 +10,19 @@ import lombok.NoArgsConstructor;
 public class Book {
 
     private String id;
-    private String title;
-    private String author;
     private String isbn;
+    private String title;
+    private String subtitle;
+    private String author;
+    private String publisher;
+    private int pages;
+    private String description;
+    private String website;
 
+    public Book(String id, String title, String author, String isbn){
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+    }
 }

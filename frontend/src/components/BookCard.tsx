@@ -1,5 +1,6 @@
 import {BookData} from "../model/BookData";
 import React from "react";
+import "../css/BookCard.css"
 type BookCardProps={
     book:BookData,
     deleteBook(id: string): void
@@ -16,11 +17,10 @@ export default function BookCard(props:BookCardProps){
     }
 
     return(
-        <div>
-            {props.book.id}
-            {props.book.author}
-            {props.book.isbn}
-            {props.book.title}
+        <div className={"BookClass"}>
+            <p>{props.book.title}</p>
+            <p>{props.book.author}</p>
+            <p>{props.book.isbn}</p>
             <button onClick={deleteBook}>Delete</button>
             <button onClick={getBookIDOnClick}>Details</button>
         </div>

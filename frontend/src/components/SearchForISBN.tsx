@@ -19,7 +19,7 @@ export default function SearchForISBN(props: SearchForISBNProps){
     return(
         <>
             ISBN:
-            <input onChange={getInputFieldValue} value={""}/>
+            <input onChange={getInputFieldValue} value={inputValue}/>
             <button onClick={setInputFieldValue}>search</button>
         </>
     )

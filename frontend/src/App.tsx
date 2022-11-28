@@ -9,7 +9,6 @@ import BookDetails from "./components/BookDetails";
 
 function App() {
   return (
-
       <BrowserRouter>
         <NavigationBar />
         <Routes>

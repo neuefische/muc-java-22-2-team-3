@@ -19,7 +19,7 @@ export default function SearchForTitle(props: SearchForTitleProps){
     return(
         <>
             Stichwort:
-            <input onChange={getInputFieldValue} value={""}/>
+            <input onChange={getInputFieldValue} value={inputValue}/>
             <button onClick={setInputFieldValue}>search</button>
         </>
     )
