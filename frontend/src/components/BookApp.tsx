@@ -17,7 +17,6 @@ export default function BookApp() {
             <SearchForISBN inputFieldValue={getBookByISBN}/><br/>
             <SearchForTitle inputFieldValue={getBookByKeyword}/><br/>
             <SearchForAuthor inputFieldValue={getBookByAuthor}/><br/>
-
             <AddBook addBook={addBook} />
         </section>
 
