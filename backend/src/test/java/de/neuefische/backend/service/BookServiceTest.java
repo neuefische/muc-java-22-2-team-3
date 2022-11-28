@@ -79,7 +79,7 @@ class BookServiceTest {
 
         List<Book> result = bookService.getBookByKeyword(keyword);
 
-        assertEquals(newBook, result);
+        assertEquals(newList, result);
     }
 
     @Test
