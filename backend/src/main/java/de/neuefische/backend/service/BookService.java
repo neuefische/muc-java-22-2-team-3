@@ -10,10 +10,12 @@ import java.util.List;
 public class BookService {
 
     private BookRepository bookRepository;
+    private IDGenerator idGenerator;
 
 
 
-    public BookService(BookRepository bookRepo){
+    public BookService(IDGenerator idGenerator, BookRepository bookRepo){
+        this.idGenerator = idGenerator;
         this.bookRepository = bookRepo;
     }
 
@@ -22,7 +24,6 @@ public class BookService {
     }
 
     public Book addBookToList(Book newBook){
-        IDGenerator idGenerator = new IDGenerator();
         String id = idGenerator.generateID();
         Book book1 = new Book(id, newBook.getTitle(), newBook.getAuthor(), newBook.getIsbn());
         return bookRepository.addBookToList(book1);
