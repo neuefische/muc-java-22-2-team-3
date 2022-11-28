@@ -8,10 +8,10 @@ export default function NavigationBar() {
             <ul >
 
                 <li >
-            <NavLink to={"/home"} >Home</NavLink>
+            <NavLink to={"books/home"} >Home</NavLink>
                 </li>
                 <li >
-            <NavLink to={"/bookList"} >Books</NavLink>
+            <NavLink to={"books/bookList"} >Books</NavLink>
             </li>
             </ul>
         </nav>
