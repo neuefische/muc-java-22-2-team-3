@@ -14,12 +14,13 @@ export default function SearchForAuthor(props: SearchForAuthorProps){
 
     function setInputFieldValue(){
         props.inputFieldValue(inputValue)
+        setInputValue("")
     }
 
     return(
         <>
             Author name:
-            <input onChange={getInputFieldValue} name={inputValue} value={inputValue}/>
+            <input onChange={getInputFieldValue} value={inputValue}/>
             <button onClick={setInputFieldValue}>search</button>
         </>
     )

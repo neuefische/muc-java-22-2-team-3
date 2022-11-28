@@ -14,6 +14,7 @@ export default function SearchForTitle(props: SearchForTitleProps){
 
     function setInputFieldValue(){
         props.inputFieldValue(inputValue)
+        setInputValue("")
     }
 
     return(
