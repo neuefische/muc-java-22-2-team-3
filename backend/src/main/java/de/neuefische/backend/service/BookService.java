@@ -46,5 +46,9 @@ public class BookService {
         return bookRepository.getBookByISBN(isbn);
     }
 
+    public List<Book> getBookByAuthor(String name){
+        return bookRepository.getBookByAuthor(name);
+    }
+
 
 }

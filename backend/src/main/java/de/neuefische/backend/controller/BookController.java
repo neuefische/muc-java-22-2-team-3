@@ -45,4 +45,8 @@ public class BookController {
         return  bookService.getBookByISBN(isbn);
     }
 
+    @GetMapping("by-author/")
+    public List<Book> getBookByAuthor(@RequestParam String name){
+        return  bookService.getBookByAuthor(name);
+    }
 }
