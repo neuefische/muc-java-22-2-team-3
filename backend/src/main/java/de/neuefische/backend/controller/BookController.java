@@ -35,13 +35,13 @@ public class BookController {
         return bookService.getBookByID(id);
     }
 
-    @GetMapping("by_keyword/")
-    public List<Book> getBookByKeyword(@RequestParam String keyword){
+    @GetMapping("/by_keyword/")
+    public List<Book> getBookByKeyword(@RequestParam(value = "keyword") String keyword){
         return  bookService.getBookByKeyword(keyword);
     }
 
-    @GetMapping("by_isbn/")
-    public Book getBookByISBN(@RequestParam String isbn){
+    @GetMapping("/by_isbn/")
+    public Book getBookByISBN(@RequestParam(value="isbn") String isbn){
         return  bookService.getBookByISBN(isbn);
     }
 
