@@ -4,6 +4,7 @@
 body{
     margin: 0;
     font-family: Helvetica, ui-rounded;
+    background-color: wheat;
 }
 .nav-bar{
     background-color: #3c5c2d;

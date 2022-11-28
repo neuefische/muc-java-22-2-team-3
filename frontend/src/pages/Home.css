@@ -1,0 +1,10 @@
+body{
+    margin: 0;
+    font-family: Helvetica, ui-rounded;
+    background-color: darkslategray;
+    color: white;
+}
+
+.home-text{
+    margin-top: 50px;
+}
