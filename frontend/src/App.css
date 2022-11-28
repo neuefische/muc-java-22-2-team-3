@@ -41,3 +41,16 @@ input{
   border-radius: 5px;
   margin: 5px;
 }
+
+button{
+  margin: 5px;
+  box-shadow: cadetblue 1px 1px;
+  border-radius: 5px;
+}
+table{
+  width: 60%;
+}
+
+.InputFields{
+  margin: 5px;
+}

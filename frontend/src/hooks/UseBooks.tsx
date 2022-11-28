@@ -20,11 +20,11 @@ export default function UseBooks(): UseBooksReturn{
     },[])
 
     function getAllBooks() {
-        axios.get("books").then(response=>response.data).then(data=>setBookList(data))
+        axios.get("/books").then(response=>response.data).then(data=>setBookList(data))
     }
 
     function addBook(newBook: BookData){
-        axios.post("books", newBook).then(savedBook =>{
+        axios.post("/books", newBook).then(savedBook =>{
             setBookList((prevState)=>{
                 return [...prevState, savedBook.data]
             })
@@ -33,7 +33,7 @@ export default function UseBooks(): UseBooksReturn{
     }
 
     function deleteBook(deletedId: string){
-        axios.delete("books/" + deletedId)
+        axios.delete("/books/" + deletedId)
             .then(()=>{
                 const newList = bookList.filter((book: BookData)=>
                     book.id!==deletedId)
@@ -42,7 +42,7 @@ export default function UseBooks(): UseBooksReturn{
     }
 
     function getBookByID(id: string){
-        axios.get("books/" + id)
+        axios.get("/books/" + id)
             .then(() => {
                 const filteredBook = bookList.filter(book => {
                         return book.id === id
@@ -55,7 +55,7 @@ export default function UseBooks(): UseBooksReturn{
     }
 
     function getBookByKeyword(keyword: string){
-        axios.get("books/by-keyword/?keyword=" + keyword)
+        axios.get("/books/by-keyword/?keyword=" + keyword)
             .then(() => {
                 const filteredBookByTitle = bookList.filter(book => {
                         return book.title.toLowerCase().includes(keyword.toLowerCase())
@@ -66,7 +66,7 @@ export default function UseBooks(): UseBooksReturn{
     }
 
     function getBookByISBN(isbn: string){
-        axios.get("books/by-isbn/?isbn=" + isbn)
+        axios.get("/books/by-isbn/?isbn=" + isbn)
             .then(() => {
                 const filteredBookByISBN = bookList.filter(book => {
                         return book.isbn.toLowerCase().includes(isbn.toLowerCase())
@@ -77,7 +77,7 @@ export default function UseBooks(): UseBooksReturn{
     }
 
     function getBookByAuthor(name: string){
-        axios.get("books/by-author/?name=" + name)
+        axios.get("/books/by-author/?name=" + name)
             .then(() => {
                 const filteredBookByAuthor =
                     bookList.filter(book => {
