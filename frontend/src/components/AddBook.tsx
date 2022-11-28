@@ -27,14 +27,17 @@ export default function AddBook(props: AddBookProps){
             isbn: newBookIsbn
         }
         props.addBook(newBook)
+        setNewBookAuthor("")
+        setNewBookIsbn("")
+        setNewBookTitle("")
     }
     
     return(
         <section>
             <h1>New Book:</h1>
-            Title: <input onChange={newBookTitleInput}/>
-            Author: <input onChange={newBookAuthorInput}/>
-            ISBN: <input onChange={newBookIsbnInput}/>
+            Title: <input onChange={newBookTitleInput} value={newBookTitle}/>
+            Author: <input onChange={newBookAuthorInput} value={newBookAuthor}/>
+            ISBN: <input onChange={newBookIsbnInput} value={newBookIsbn}/>
             <button onClick={addBook}>Add</button>
         </section>
             

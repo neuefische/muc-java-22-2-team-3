@@ -14,6 +14,7 @@ export default function SearchForISBN(props: SearchForISBNProps){
 
     function setInputFieldValue(){
         props.inputFieldValue(inputValue)
+        setInputValue("")
     }
 
     return(
