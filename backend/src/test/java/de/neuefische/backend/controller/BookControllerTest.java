@@ -150,4 +150,26 @@ ObjectMapper objectMapper;
                     """));
     }
 
+    @DirtiesContext
+    @Test
+    void test_getBookByAuthor() throws Exception{
+        String name = "me";
+        Book newBook = new Book("123", "Java", "me" , "isbn");
+
+        bookRepository.addBookToList(newBook);
+
+        mockMvc.perform(get("/books/by-author/?name=" + name))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [{
+                    "id" : "123",
+                        "title": "Java",
+                        "author": "me",
+                        "isbn": "isbn"
+                    }]
+                    """));
+    }
+
+
+
 }

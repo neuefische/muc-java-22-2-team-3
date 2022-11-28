@@ -61,6 +61,15 @@ public class BookRepository {
         return null;
     }
 
+    public List<Book> getBookByAuthor(String name){
+        List<Book> newList = new ArrayList<>();
+        for(Book book: bookList){
+            if(book.getAuthor().toLowerCase().matches(name.toLowerCase())){
+                newList.add(book);
+            }
+        }
+        return newList;
+    }
 
 
 

@@ -90,5 +90,20 @@ class BookServiceTest {
 
         assertEquals(newBook, result);
     }
+    @Test
+    void test_getBookByAuthor(){
+        String name = "me";
+
+        Book newBook = new Book("id", "aaaaaa","me","isbn");
+        List<Book> newList = new ArrayList<>();
+        newList.add(newBook);
+
+        when(bookRepository.getBookByAuthor(name)).thenReturn(newList);
+
+        List<Book> result = bookService.getBookByAuthor(name);
+
+        assertEquals(newList, result);
+    }
+
 
 }
