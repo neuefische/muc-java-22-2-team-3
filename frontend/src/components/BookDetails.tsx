@@ -19,7 +19,6 @@ export default function BookDetails(){
         axios.get("/books/" + id)
             .then(response => response.data)
             .then(data => {
-                console.log(data)
                 setBook(data)
             })
     }
