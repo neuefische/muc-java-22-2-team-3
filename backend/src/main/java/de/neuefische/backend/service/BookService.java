@@ -22,10 +22,7 @@ public class BookService {
     }
 
     public Book addBookToList(Book newBook){
-        IDGenerator idGenerator = new IDGenerator();
-        String id = idGenerator.generateID();
-        Book book1 = new Book(id, newBook.getTitle(), newBook.getAuthor(), newBook.getIsbn());
-        return bookRepository.addBookToList(book1);
+        return bookRepository.addBookToList(newBook);
     }
     public boolean deleteBook(String id){
 

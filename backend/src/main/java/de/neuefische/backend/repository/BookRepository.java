@@ -3,8 +3,7 @@ package de.neuefische.backend.repository;
 import de.neuefische.backend.model.Book;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class BookRepository {
