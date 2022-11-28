@@ -29,7 +29,7 @@ ObjectMapper objectMapper;
     @DirtiesContext
     @Test
     void test_getAllBooks() throws Exception{
-        Book newBook = new Book("me", "Java" , "isbn");
+        Book newBook = new Book("123", "me", "Java" , "isbn");
 
         bookRepository.addBookToList(newBook);
 
@@ -37,6 +37,7 @@ ObjectMapper objectMapper;
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
 [{
+"id": "123",
 "title": "me",
 "author": "Java",
 "isbn": "isbn"
@@ -44,34 +45,15 @@ ObjectMapper objectMapper;
 """));
     }
 
-    @DirtiesContext
-    @Test
-    void test_getBookByKeyword() throws Exception{
-        String keyword = "me";
-        Book newBook = new Book("me", "Java" , "isbn");
-
-        bookRepository.addBookToList(newBook);
-
-        mockMvc.perform(get("/books/by_keyword/").param("keyword",keyword))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                    [{
-                        "title": "me",
-                        "author": "Java",
-                        "isbn": "isbn"
-                    }]
-                    """));
-    }
-
-    @DirtiesContext
     @Test
     void test_addToBookList() throws Exception{
-        Book newBook = new Book("me", "Java" , "isbn");
+        Book newBook = new Book("123", "me", "Java" , "isbn");
 
         bookRepository.addBookToList(newBook);
 
         mockMvc.perform(post("/books").contentType(MediaType.APPLICATION_JSON).content("""
 {
+"id": "123",
 "title": "me",
 "author": "Java",
 "isbn": "isbn"
@@ -80,25 +62,44 @@ ObjectMapper objectMapper;
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
 {
+"id": "123",
 "title": "me",
 "author": "Java",
 "isbn": "isbn"
 }
 """));
     }
+@DirtiesContext
+    @Test
+    void expectSuccessfulDelete() throws Exception {
 
-    @DirtiesContext
+    Book book = new Book ("1","me", "me","isbn");
+    bookRepository.addBookToList(book);
+    String id = book.getId();
+    bookRepository.deleteBook(id);
+    mockMvc.perform(delete("http://localhost:8080/books/"+id)
+
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                        {
+                        }"""))
+            .andExpect(status().isOk());
+
+
+    }
+
     @Test
     void test_getBookByID() throws Exception{
+        String id = "123";
+        Book newBook = new Book(id, "me", "Java" , "isbn");
 
-        Book newBook = new Book("me", "Java" , "isbn");
-        String id = newBook.getId();
         bookRepository.addBookToList(newBook);
 
         mockMvc.perform(get("/books/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     {
+                        "id": "123",
                         "title": "me",
                         "author": "Java",
                         "isbn": "isbn"
@@ -110,11 +111,11 @@ ObjectMapper objectMapper;
     @Test
     void test_getBookByISBN() throws Exception{
         String isbn = "isbn";
-        Book newBook = new Book("me", "Java" , "isbn");
+        Book newBook = new Book("123", "me", "Java" , "isbn");
 
         bookRepository.addBookToList(newBook);
 
-        mockMvc.perform(get("/books/by_isbn/").param("isbn",isbn))
+        mockMvc.perform(get("/books/by_isbn/" + isbn))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     {
@@ -125,17 +126,7 @@ ObjectMapper objectMapper;
                     """));
     }
 
-    @DirtiesContext
-    @Test
-    void expectSuccessfulDelete() throws Exception {
 
-        Book book = new Book ("me", "me","isbn");
-        bookRepository.addBookToList(book);
-        String id = book.getId();
-        mockMvc.perform(delete("http://localhost:8080/books/"+id))
-                .andExpect(content().string("true"))
-                .andExpect(status().isOk());
-    }
 
 
 }
