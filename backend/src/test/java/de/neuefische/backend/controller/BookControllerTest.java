@@ -26,7 +26,7 @@ class BookControllerTest {
 
 @Autowired
 ObjectMapper objectMapper;
-
+    @DirtiesContext
     @Test
     void test_getAllBooks() throws Exception{
         Book newBook = new Book("me", "Java" , "isbn");
@@ -87,7 +87,7 @@ ObjectMapper objectMapper;
 """));
     }
 
-
+    @DirtiesContext
     @Test
     void test_getBookByID() throws Exception{
 
