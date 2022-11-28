@@ -47,10 +47,6 @@ class BookServiceTest {
         assertEquals(newBook, result);
     }
 
-
-
-
-
     @Test
     void test_deleteBook() {
 
@@ -64,8 +60,6 @@ class BookServiceTest {
         assertFalse(result);
 
     }
-
-
 
     @Test
     void test_getBookByKeyword(){
