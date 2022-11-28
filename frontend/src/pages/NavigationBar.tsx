@@ -5,14 +5,14 @@ export default function NavigationBar() {
 
     return (
         <nav className={"nav-bar"}>
+            <a href={"/books/"} className={"site-title"}>BOOK-PARADISE</a>
             <ul >
-
                 <li >
-            <NavLink to={"/books/home"} >Home</NavLink>
+                    <a href={"/books/home"} >Home</a>
                 </li>
                 <li >
-            <NavLink to={"/books"} >Books</NavLink>
-            </li>
+                    <a href={"/books"} >Books</a>
+                </li>
             </ul>
         </nav>
     )
