@@ -8,13 +8,13 @@ export default function NavigationBar() {
             <NavLink to={"/books/"} className={"site-title"}>BOOK-PARADISE</NavLink>
             <ul >
                 <li >
-                    <NavLink to={"/books/home"} >Home</NavLink>
+                    <NavLink to={"/books/home"}>Home</NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/books"} >Books</NavLink>
+                    <NavLink to={"/books"}>Books</NavLink>
                 </li>
                 <li >
-                    <NavLink to={"/books/favoriten"} >Favoriten</NavLink>
+                    <NavLink to={"/books/favoriten"}>Favoriten</NavLink>
                 </li>
             </ul>
         </nav>

@@ -16,9 +16,10 @@ export default function BookDetails(){
     },[])
 
     function getBookDetailsByID(id: string){
-        axios.get("/{id}" + id)
+        axios.get("/books/" + id)
             .then(response => response.data)
             .then(data => {
+                console.log(data)
                 setBook(data)
             })
     }

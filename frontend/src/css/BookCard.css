@@ -1,5 +1,21 @@
 .BookClass{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 5px;
+    border: 1px solid gray;
+}
+
+.Details{
+    background-color: cadetblue;
+}
+
+.Delete{
+    background-color: lightcoral;
+}
+
+p{
+    margin: 5px;
+}
+.Title{
+    font-weight: bold;
 }

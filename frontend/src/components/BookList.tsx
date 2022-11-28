@@ -12,7 +12,7 @@ export default function BookList(props:BookListProps){
          props.bookList.map((book)=>{
         
              if(book.id){
-                 return <BookCard book={book} getBookByIDFunction={props.getBookByIDInBookList} deleteBook={props.deleteBook} key={book.id} ></BookCard > ;}
+                 return <BookCard book={book} deleteBook={props.deleteBook} key={book.id} ></BookCard > ;}
              }
          )
            
