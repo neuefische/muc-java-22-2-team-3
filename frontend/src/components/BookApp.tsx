@@ -7,7 +7,7 @@ import UseBooks from "../hooks/UseBooks";
 
 export default function BookApp() {
 
-    const {bookList, addBook, deleteBook, getBookByID, getBookByISBN, getBookByAuthor, getBookByKeyword} = UseBooks();
+    const {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword} = UseBooks();
 
     return (
 
@@ -22,7 +22,7 @@ export default function BookApp() {
                 </tr>
                 </thead>
             </table>
-            <BookList bookList={bookList} deleteBook={deleteBook} getBookByIDInBookList={getBookByID}/><br/>
+            <BookList bookList={bookList} deleteBook={deleteBook}/><br/>
             <div className={"InputFields"}>
             <SearchForTitle inputFieldValue={getBookByKeyword}/><br/>
             <SearchForAuthor inputFieldValue={getBookByAuthor}/><br/>

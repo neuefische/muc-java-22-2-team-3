@@ -73,16 +73,15 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function getBookByISBN(isbn: string){
-        axios.get("/books/by-isbn/?isbn=" + isbn)
-            .then(response => response.data)
-            .then(data => setBookList(data))
-/*            .then(() => {
                 const filteredBookByISBN = bookList.filter(book => {
                         return book.isbn.toLowerCase().includes(isbn.toLowerCase())
                     })
                 setBookList(filteredBookByISBN)
-            })*/
-            .catch(console.error)
+
+/*        axios.get("/books/by-isbn/?isbn=" + isbn)
+            .then(response => response.data)
+            .then(data => setBookList(data))
+            .catch(console.error)*/
 
     }
 

@@ -4,21 +4,16 @@ import BookCard from "./BookCard";
 type BookListProps={
     bookList:BookData[],
     deleteBook(id: string): void
+
 }
 export default function BookList(props:BookListProps){
-    const getBookList = () => {
-        return props.bookList.map((book) => {
-                if (book.id) {
-                    return <BookCard book={book} deleteBook={props.deleteBook} key={book.id}></BookCard>;
-                }
-                else return null
-            }
-        )
-    }
-
+    const getBookList=
+         props.bookList.map((book)=>{
+                 return <BookCard book={book} deleteBook={props.deleteBook} key={book.id} />;}
+         )
     return(
         <div>
-            {getBookList()}
+            {getBookList}
         </div>
     )
 }
