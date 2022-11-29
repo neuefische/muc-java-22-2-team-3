@@ -1,17 +1,17 @@
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import "../components/NavigationBar.css";
 
 export default function NavigationBar() {
 
     return (
         <nav className={"nav-bar"}>
-            <a href={"/books/"} className={"site-title"}>BOOK-PARADISE</a>
+            <Link to={"/books/"} className={"site-title"}>BOOK-PARADISE</Link>
             <ul >
                 <li >
-                    <a href={"/books/home"} >Home</a>
+                    <Link to={"/books/home"} >Home</Link>
                 </li>
                 <li >
-                    <a href={"/books"} >Books</a>
+                    <Link to={"/books"} >Books</Link>
                 </li>
             </ul>
         </nav>
