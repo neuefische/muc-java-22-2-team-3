@@ -1,45 +1,46 @@
 import {BookData} from '../model/BookData';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 
 type AddBookProps = {
     addBook(newBook: BookData): void
 }
 
 export default function AddBook(props: AddBookProps){
+    const emptyInput: BookData = {
+        "author": "",
+        "title": "",
+        "isbn": ""
+    }
     
-    const [newBookTitle, setNewBookTitle] = useState<string>("")
-    const [newBookAuthor, setNewBookAuthor] = useState<string>("")
-    const [newBookIsbn, setNewBookIsbn] = useState<string>("")
-    
-    const newBookTitleInput = (event:ChangeEvent<HTMLInputElement>)=>{
-        setNewBookTitle(event.target.value)
+    const [inputValue, setInputValue] = useState(emptyInput)
+
+    useEffect(()=>{
+
+    }, [inputValue])
+
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault()
+        props.addBook(inputValue)
+        setInputValue(emptyInput)
     }
-    const newBookAuthorInput = (event:ChangeEvent<HTMLInputElement>)=>{
-        setNewBookAuthor(event.target.value)
-    }
-    const newBookIsbnInput = (event:ChangeEvent<HTMLInputElement>)=>{
-        setNewBookIsbn(event.target.value)
-    }
-    function addBook(){
-        const newBook: BookData = {
-            title: newBookTitle,
-            author: newBookAuthor,
-            isbn: newBookIsbn
-        }
-        props.addBook(newBook)
-        setNewBookAuthor("")
-        setNewBookIsbn("")
-        setNewBookTitle("")
+
+    function handleOnClick(event: ChangeEvent<HTMLInputElement>){
+        const fieldName = event.target.name
+        const fieldValue = event.target.value
+
+        setInputValue(prevState => ({
+            ...prevState, [fieldName]: fieldValue
+        }))
     }
     
     return(
-        <section>
+        <form onSubmit={handleSubmit}>
             <h1>New Book:</h1>
-            Title: <input onChange={newBookTitleInput} value={newBookTitle}/>
-            Author: <input onChange={newBookAuthorInput} value={newBookAuthor}/>
-            ISBN: <input onChange={newBookIsbnInput} value={newBookIsbn}/>
-            <button onClick={addBook}>Add</button>
-        </section>
+            Title: <input type={"text"} onChange={handleOnClick} name={"title"} value={inputValue.title}/>
+            Author: <input type={"text"} onChange={handleOnClick} name={"author"} value={inputValue.author}/>
+            ISBN: <input type={"text"} onChange={handleOnClick} name={"isbn"} value={inputValue.isbn}/>
+            <button>Add</button>
+        </form>
             
     )
     
