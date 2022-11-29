@@ -12,7 +12,7 @@ type UseBooksReturn = {
     getBookByKeyword: (keyword: string) => void
 }
 
-export default function UseBooks(): UseBooksReturn{
+export default function useBooks(): UseBooksReturn{
     const [bookList,setBookList]=useState<BookData[]>([])
 
     useEffect(() => {
@@ -39,53 +39,65 @@ export default function UseBooks(): UseBooksReturn{
                     book.id!==deletedId)
                 setBookList(newList)
             })
+            .catch(console.error)
     }
 
     function getBookByID(id: string){
         axios.get("/books/" + id)
-            .then(() => {
+            .then(response => response.data)
+            .then(data => setBookList(data))
+/*            .then(() => {
                 const filteredBook = bookList.filter(book => {
                         return book.id === id
                     })
                 if(id){
                     setBookList(filteredBook)
                 }
-            })
+            })*/
+            .catch(console.error)
 
     }
 
     function getBookByKeyword(keyword: string){
         axios.get("/books/by-keyword/?keyword=" + keyword)
-            .then(() => {
+            .then(response => response.data)
+            .then(data => setBookList(data))
+/*            .then(() => {
                 const filteredBookByTitle = bookList.filter(book => {
                         return book.title.toLowerCase().includes(keyword.toLowerCase())
                     })
                 setBookList(filteredBookByTitle)
-            })
+            })*/
+            .catch(console.error)
 
     }
 
     function getBookByISBN(isbn: string){
         axios.get("/books/by-isbn/?isbn=" + isbn)
-            .then(() => {
+            .then(response => response.data)
+            .then(data => setBookList(data))
+/*            .then(() => {
                 const filteredBookByISBN = bookList.filter(book => {
                         return book.isbn.toLowerCase().includes(isbn.toLowerCase())
                     })
                 setBookList(filteredBookByISBN)
-            })
+            })*/
+            .catch(console.error)
 
     }
 
     function getBookByAuthor(name: string){
         axios.get("/books/by-author/?name=" + name)
-            .then(() => {
+            .then(response => response.data)
+            .then(data => setBookList(data))
+/*            .then(() => {
                 const filteredBookByAuthor =
                     bookList.filter(book => {
                         return book.author.toLowerCase().includes(name.toLowerCase())
                     })
                 setBookList(filteredBookByAuthor)
-            })
-
+            })*/
+            .catch(console.error)
 
     }
 
