@@ -21,7 +21,6 @@ export default function BookCard(props:BookCardProps){
             <p className={"Title"}>{props.book.title}</p>
             <p>{props.book.author}</p>
             <p>{props.book.isbn}</p>
-
             <button onClick={getBookByIDOnClick} className={"Details"} >Details</button>
             <button onClick={deleteBook} className={"Delete"}>Delete</button>
         </div>
