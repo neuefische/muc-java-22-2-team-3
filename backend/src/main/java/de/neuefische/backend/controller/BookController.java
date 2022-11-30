@@ -1,11 +1,12 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Book;
+
+import de.neuefische.backend.model.BookDTO;
 import de.neuefische.backend.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("books")
@@ -22,7 +23,8 @@ public class BookController {
     }
 
     @PostMapping
-    public Book addToBookList(@RequestBody Book newBook){
+    public Book addToBookList(@RequestBody BookDTO newBook){
+
         return bookService.addBookToList(newBook);
     }
 
@@ -31,9 +33,12 @@ public class BookController {
         return bookService.deleteBook(id);
     }
 
-    @GetMapping("/{id}")
-    public Optional<Book> getBookByID(@PathVariable String id){
-        return bookService.getBookByID(id);
+    @GetMapping("/")
+    public List<Book> getBook(@RequestParam(name="id", required=false) String id,
+                        @RequestParam(name="author", required=false) String author,
+                        @RequestParam(name="title", required=false) String keyword,
+                        @RequestParam(name="isbn", required=false) String isbn){
+    return bookService.getBookBy(id, author, keyword, isbn);
     }
 
 
