@@ -13,6 +13,7 @@ export default function BookDetails(){
         if(id){
             getBookDetailsByID(id)
         }
+        //eslint-disable-next-line
     },[])
 
     function getBookDetailsByID(id: string){
