@@ -5,6 +5,7 @@ import de.neuefische.backend.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("books")
@@ -31,22 +32,9 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getBookByID(@PathVariable String id){
+    public Optional<Book> getBookByID(@PathVariable String id){
         return bookService.getBookByID(id);
     }
 
-    @GetMapping("by-keyword/")
-    public List<Book> getBookByKeyword(@RequestParam String keyword){
-        return  bookService.getBookByKeyword(keyword);
-    }
 
-    @GetMapping("by-isbn/")
-    public Book getBookByISBN(@RequestParam String isbn){
-        return  bookService.getBookByISBN(isbn);
-    }
-
-    @GetMapping("by-author/")
-    public List<Book> getBookByAuthor(@RequestParam String name){
-        return  bookService.getBookByAuthor(name);
-    }
 }
