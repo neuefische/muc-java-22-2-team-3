@@ -80,7 +80,7 @@ ObjectMapper objectMapper;
     bookRepository.save(book);
     String id = book.getId();
     bookRepository.deleteById(id);
-    mockMvc.perform(delete("http://localhost:8080/books/"+id)
+    mockMvc.perform(delete("/books/"+id)
 
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("""
