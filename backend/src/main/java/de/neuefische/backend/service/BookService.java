@@ -42,8 +42,9 @@ public class BookService {
 
     public List<Book> getBookBy(String id, String name, String keyword, String isbn){
         List<Book> newList = new ArrayList<>();
-        newList.add(bookRepository.findById(id).orElseThrow(NoSuchElementException::new));
-
+        if(id!= null) {
+            newList.add(bookRepository.findById(id).orElseThrow(NoSuchElementException::new));
+        }
         if(name != null){
             newList = bookRepository.findBooksByAuthor(name);
         }
