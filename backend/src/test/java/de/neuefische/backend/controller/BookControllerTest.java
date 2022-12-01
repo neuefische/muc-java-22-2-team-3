@@ -131,7 +131,7 @@ class BookControllerTest {
 
         bookRepository.save(newBook);
 
-        mockMvc.perform(get("/books/?isbn=" + isbn))
+        mockMvc.perform(get("/books/search/?isbn=" + isbn))
                 .andExpect(status().isOk());
 /*                .andExpect(content().json("""
                         [{
@@ -158,7 +158,7 @@ class BookControllerTest {
 
         bookRepository.insert(newBook);
 
-        mockMvc.perform(get("/books/?title=" + keyword))
+        mockMvc.perform(get("/books/search/?title=" + keyword))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         [{
@@ -185,7 +185,7 @@ class BookControllerTest {
 
         bookRepository.insert(newBook);
 
-        mockMvc.perform(get("/books/?author=" + name))
+        mockMvc.perform(get("/books/search/?author=" + name))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         [{
