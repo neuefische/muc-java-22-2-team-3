@@ -27,7 +27,7 @@ public class BookService {
 
     public Book addBookToList(BookDTO newBook){
         String id = idGenerator.generateID();
-        Book book1 = new Book(id, newBook.getTitle(), newBook.getAuthor(), newBook.getIsbn());
+        Book book1 = new Book(id, newBook.title(), newBook.author(), newBook.isbn());
         return bookRepository.insert(book1);
     }
     public boolean deleteBook(String id){
