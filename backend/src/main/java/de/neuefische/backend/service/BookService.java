@@ -16,7 +16,6 @@ public class BookService {
     private final IDGenerator idGenerator;
 
 
-
     public BookService(IDGenerator idGenerator, BookRepository bookRepo){
         this.idGenerator = idGenerator;
         this.bookRepository = bookRepo;
@@ -39,7 +38,6 @@ public class BookService {
         return false;
     }
 
-
     public List<Book> getBookBy(String id, String name, String keyword, String isbn){
         List<Book> newList = new ArrayList<>();
         if(id!= null) {
@@ -58,24 +56,6 @@ public class BookService {
         }
 
         return newList;
-    }
-
-
-
-    public Book getBookByID(String id){
-        return bookRepository.findById(id).orElseThrow(NoSuchElementException:: new);
-    }
-
-    public List<Book> getBookByKeyword(String keyword){
-        return bookRepository.findBooksByTitle(keyword);
-    }
-
-    public Book getBookByISBN(String isbn){
-        return bookRepository.findBookByIsbn(isbn);
-    }
-
-    public List<Book> getBookByAuthor(String name){
-        return bookRepository.findBooksByAuthor(name);
     }
 
 }
