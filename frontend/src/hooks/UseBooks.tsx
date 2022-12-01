@@ -20,7 +20,7 @@ export default function useBooks(): UseBooksReturn{
     },[])
 
     function getAllBooks() {
-        axios.get("/books/").then(response=>response.data).then(data=> {
+        axios.get("/books").then(response=>response.data).then(data=> {
             setBookList(data)
         })
     }

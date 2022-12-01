@@ -21,7 +21,13 @@ public class BookController {
     public List<Book> getAllBooks(){
         return bookService.getBookList();
     }
-
+    @GetMapping("/search/")
+    public List<Book> getBook(@RequestParam(name="id", required=false) String id,
+                              @RequestParam(name="author", required=false) String author,
+                              @RequestParam(name="title", required=false) String keyword,
+                              @RequestParam(name="isbn", required=false) String isbn){
+        return bookService.getBookBy(id, author, keyword, isbn);
+    }
     @PostMapping
     public Book addToBookList(@RequestBody BookDTO newBook){
 
@@ -33,13 +39,7 @@ public class BookController {
         return bookService.deleteBook(id);
     }
 
-    @GetMapping("/")
-    public List<Book> getBook(@RequestParam(name="id", required=false) String id,
-                        @RequestParam(name="author", required=false) String author,
-                        @RequestParam(name="title", required=false) String keyword,
-                        @RequestParam(name="isbn", required=false) String isbn){
-    return bookService.getBookBy(id, author, keyword, isbn);
-    }
+
 
 
 }
