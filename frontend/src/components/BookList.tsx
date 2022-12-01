@@ -4,7 +4,6 @@ import BookCard from "./BookCard";
 type BookListProps={
     bookList:BookData[],
     deleteBook(id: string): void
-
 }
 export default function BookList(props:BookListProps){
     const getBookList=

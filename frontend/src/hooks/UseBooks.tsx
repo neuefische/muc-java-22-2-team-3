@@ -20,11 +20,13 @@ export default function useBooks(): UseBooksReturn{
     },[])
 
     function getAllBooks() {
-        axios.get("/books").then(response=>response.data).then(data=>setBookList(data))
+        axios.get("/books/").then(response=>response.data).then(data=> {
+            setBookList(data)
+        })
     }
 
     function addBook(newBook: BookData){
-        axios.post("/books", newBook).then(savedBook =>{
+        axios.post("/books/", newBook).then(savedBook =>{
             setBookList((prevState)=>{
                 return [...prevState, savedBook.data]
             })
@@ -43,7 +45,7 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function getBookByID(id: string){
-        axios.get("/books/" + id)
+        axios.get("/books/?id=" + id)
             .then(response => response.data)
             .then(data => setBookList(data))
 /*            .then(() => {
@@ -59,7 +61,7 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function getBookByKeyword(keyword: string){
-        axios.get("/books/by-keyword/?keyword=" + keyword)
+        axios.get("/books/?title=" + keyword)
             .then(response => response.data)
             .then(data => setBookList(data))
 /*            .then(() => {
@@ -86,7 +88,7 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function getBookByAuthor(name: string){
-        axios.get("/books/by-author/?name=" + name)
+        axios.get("/books/?author=" + name)
             .then(response => response.data)
             .then(data => setBookList(data))
 /*            .then(() => {
