@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 public class BookService {
 
-    private BookRepository bookRepository;
-    private IDGenerator idGenerator;
+    private final BookRepository bookRepository;
+    private final IDGenerator idGenerator;
 
 
 
@@ -42,29 +42,27 @@ public class BookService {
 
     public List<Book> getBookBy(String id, String name, String keyword, String isbn){
         List<Book> newList = new ArrayList<>();
-        if(id != null && bookRepository.findById(id).isPresent()){
-                newList.add(bookRepository.findById(id).get());
-        }
+        newList.add(bookRepository.findById(id).orElseThrow(NoSuchElementException::new));
+
         if(name != null){
             newList = bookRepository.findBooksByAuthor(name);
         }
+
         if(isbn != null){
             newList.add(bookRepository.findBookByIsbn(isbn));
         }
+
         if(keyword != null){
             newList = bookRepository.findBooksByTitle(keyword);
         }
+
         return newList;
     }
 
 
 
     public Book getBookByID(String id){
-        Optional<Book> ob = bookRepository.findById(id);
-        if(ob.isPresent()){
-            return ob.get();
-        }
-        return null;
+        return bookRepository.findById(id).orElseThrow(NoSuchElementException:: new);
     }
 
     public List<Book> getBookByKeyword(String keyword){
