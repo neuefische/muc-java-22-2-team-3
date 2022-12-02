@@ -2,7 +2,7 @@ package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookDTO;
-import de.neuefische.backend.repository.BookRepository;
+import de.neuefische.backend.repository.BooksRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import java.util.NoSuchElementException;
 @Service
 public class BookService {
 
-    private final BookRepository bookRepository;
+    private final BooksRepository bookRepository;
 
     private final IDGenerator idGenerator;
 
 
-    public BookService(IDGenerator idGenerator, BookRepository bookRepo) {
+    public BookService(IDGenerator idGenerator, BooksRepository bookRepo) {
         this.idGenerator = idGenerator;
         this.bookRepository = bookRepo;
     }
