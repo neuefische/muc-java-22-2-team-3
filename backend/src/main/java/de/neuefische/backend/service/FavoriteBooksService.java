@@ -49,4 +49,9 @@ public class FavoriteBooksService {
         return id;
     }
 
+
+    public FavoriteBook updateFavoriteBook(FavoriteBook favoriteBook) {
+        return favoriteBooksRepository.save(favoriteBook);
+    }
+
 }
