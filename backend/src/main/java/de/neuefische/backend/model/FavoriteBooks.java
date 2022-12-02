@@ -1,6 +1,6 @@
 package de.neuefische.backend.model;
 
-public class FavoriteBook extends Book{
+public class FavoriteBooks extends Book{
     Status status;
 
 }

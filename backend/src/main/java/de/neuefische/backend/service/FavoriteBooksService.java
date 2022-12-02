@@ -1,4 +1,4 @@
 package de.neuefische.backend.service;
 
-public class UserService {
+public class FavoriteBooksService {
 }

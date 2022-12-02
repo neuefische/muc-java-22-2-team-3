@@ -1,7 +1,7 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Book;
-import de.neuefische.backend.repository.BookRepository;
+import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.service.IDGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ class BookControllerTest {
     IDGenerator idGenerator;
 
     @Autowired
-    BookRepository bookRepository;
+    BooksRepository bookRepository;
 
     @Autowired
     ObjectMapper objectMapper;
