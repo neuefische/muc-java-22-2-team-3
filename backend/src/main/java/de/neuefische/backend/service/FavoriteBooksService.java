@@ -1,6 +1,7 @@
 package de.neuefische.backend.service;
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.FavoriteBook;
+import de.neuefische.backend.model.Status;
 import de.neuefische.backend.repository.FavoriteBooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class FavoriteBooksService {
     private final FavoriteBooksRepository favoriteBooksRepository;
 
 
-    private String id;
+    private final String id;
     @Autowired
     public FavoriteBooksService(FavoriteBooksRepository booksRepo) {
         this.favoriteBooksRepository = booksRepo;
@@ -40,8 +41,12 @@ public class FavoriteBooksService {
         }
 
     public FavoriteBook addToFavoriteBooks(Book book) {
-        FavoriteBook newFavoriteBook = new FavoriteBook(book);
+        FavoriteBook newFavoriteBook = new FavoriteBook(Status.TOREAD, book);
         return favoriteBooksRepository.save(newFavoriteBook);
+    }
+
+    public String getID(){
+        return id;
     }
 
 }
