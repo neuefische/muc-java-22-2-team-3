@@ -13,6 +13,6 @@ import java.util.List;
 public class FavoriteList {
 
     private String favoriteId;
-    private List<FavoriteBooks> favoriteBookList;
+    private List<FavoriteBook> favoriteBookList;
 
 }
