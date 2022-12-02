@@ -22,7 +22,6 @@ public class FavoriteBooksService {
         this.id =(new IDGenerator()).generateID();
     }
 
-
     public List<FavoriteBook> getFavoriteBookList() {
         return favoriteBooksRepository.findAll();
     }
