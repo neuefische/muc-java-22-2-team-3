@@ -1,4 +1,5 @@
 package de.neuefische.backend.service;
+import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.FavoriteBook;
 import de.neuefische.backend.repository.FavoriteBooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ public class FavoriteBooksService {
 
     private final FavoriteBooksRepository favoriteBooksRepository;
 
-    private final IDGenerator idGenerator;
 
+    private String id;
     @Autowired
-    public FavoriteBooksService(FavoriteBooksRepository favoriteBooksRepository, IDGenerator idGenerator) {
-        this.favoriteBooksRepository = favoriteBooksRepository;
-        this.idGenerator = idGenerator;
+    public FavoriteBooksService(FavoriteBooksRepository booksRepo) {
+        this.favoriteBooksRepository = booksRepo;
+        this.id =(new IDGenerator()).generateID();
     }
 
     public List<FavoriteBook> getFavoriteBookList() {
@@ -37,5 +38,10 @@ public class FavoriteBooksService {
             FavoriteBook favoriteBooks = findFavoriteBookById(id);
             favoriteBooksRepository.delete(favoriteBooks);
         }
+
+    public FavoriteBook addToFavoriteBooks(Book book) {
+        FavoriteBook newFavoriteBook = new FavoriteBook(book);
+        return favoriteBooksRepository.save(newFavoriteBook);
     }
 
+}

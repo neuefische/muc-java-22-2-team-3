@@ -15,6 +15,4 @@ public class FavoriteList {
     private String favoriteId;
     private List<FavoriteBook> favoriteBookList;
 
-
-
 }
