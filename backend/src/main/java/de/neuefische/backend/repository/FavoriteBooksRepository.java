@@ -14,9 +14,6 @@ public interface FavoriteBooksRepository extends MongoRepository<FavoriteBook, S
     Map<String, FavoriteBook> favoriteList = new HashMap<>();
 
 
-    public default FavoriteBook update(FavoriteBook favoriteBook) {
-        favoriteList.put(String.valueOf(favoriteBook.status),favoriteBook);
-        return favoriteBook;
-    }
+
 
 }

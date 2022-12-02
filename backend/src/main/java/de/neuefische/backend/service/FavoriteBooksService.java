@@ -1,12 +1,9 @@
 package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.FavoriteBook;
-import de.neuefische.backend.model.User;
 import de.neuefische.backend.repository.FavoriteBooksRepository;
-import de.neuefische.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class FavoriteBooksService {
@@ -16,8 +13,8 @@ public class FavoriteBooksService {
         this.favoriteBooksRepository = favoriteBooksRepository;
     }
 
-    public FavoriteBook update(FavoriteBook favoriteBook) {
-        return favoriteBooksRepository.update(favoriteBook);
+    public FavoriteBook updateFavoriteBook(FavoriteBook favoriteBook) {
+        return favoriteBooksRepository.save(favoriteBook);
     }
 
 }
