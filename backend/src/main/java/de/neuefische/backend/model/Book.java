@@ -14,20 +14,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Book {
     @Id
     private String id;
-
+    private String author;
     private String isbn;
-
     private String title;
 
-    private String subtitle;
+    private String description;
 
-    private String author;
+    private String subtitle;
 
     private String publisher;
 
     private int pages;
-
-    private String description;
 
     private String website;
 

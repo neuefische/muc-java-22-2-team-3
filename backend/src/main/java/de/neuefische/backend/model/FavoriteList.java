@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -13,6 +13,6 @@ import java.util.List;
 public class FavoriteList {
 
     private String favoriteId;
-    private List<FavoriteBook> favoriteBookList;
+    private Set<FavoriteBook> favoriteBookList;
 
 }

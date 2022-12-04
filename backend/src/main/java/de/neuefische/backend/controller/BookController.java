@@ -13,6 +13,7 @@ import java.util.List;
 public class BookController {
     private BookService bookService;
 
+
     public BookController(BookService bookService){
         this.bookService = bookService;
     }
@@ -30,7 +31,6 @@ public class BookController {
     }
     @PostMapping
     public Book addToBookList(@RequestBody BookDTO newBook){
-
         return bookService.addBookToList(newBook);
     }
 
@@ -38,8 +38,6 @@ public class BookController {
     public boolean deleteBook(@RequestBody @PathVariable String id){
         return bookService.deleteBook(id);
     }
-
-
 
 
 }

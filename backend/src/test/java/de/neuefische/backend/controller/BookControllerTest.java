@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.repository.BooksRepository;
+import de.neuefische.backend.repository.FavoriteBooksRepository;
 import de.neuefische.backend.service.IDGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,6 +29,9 @@ class BookControllerTest {
 
     @Autowired
     BooksRepository bookRepository;
+
+    @Autowired
+    FavoriteBooksRepository favoriteBooksRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -132,8 +135,8 @@ class BookControllerTest {
         bookRepository.save(newBook);
 
         mockMvc.perform(get("/books/search/?isbn=" + isbn))
-                .andExpect(status().isOk());
-/*                .andExpect(content().json("""
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
                         [{
                             "id": "123",
                             "isbn": "isbn",
@@ -145,7 +148,7 @@ class BookControllerTest {
                             "description":null,
                             "website":null
                         }]
-                        """));*/
+                        """));
     }
 
     @DirtiesContext
@@ -202,5 +205,31 @@ class BookControllerTest {
                         """));
     }
 
+    @DirtiesContext
+    @Test
+    void test_addFavoriteBook() throws Exception {
+        String bookId = "123";
+        Book newBook = new Book();
+        newBook.setId(bookId);
+
+        bookRepository.save(newBook);
+
+        mockMvc.perform(post("/books/favoritebooks/"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [{
+                            "id": "123",
+                            "isbn": null,
+                            "title":null,
+                            "subtitle":null,
+                            "author": "null",
+                            "publisher":null,
+                            "pages":0,
+                            "description":null,
+                            "website":null,
+                            "status" : "TO_READ"
+                        }]
+                        """));
+    }
 
 }
