@@ -1,40 +1,40 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.FavoriteBook;
-import de.neuefische.backend.repository.FavoriteBooksRepository;
 import de.neuefische.backend.service.FavoriteBooksService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("books/favoritebooks")
+@RequestMapping("/books/favoritebooks")
 public class FavoriteBooksController {
 
-    private final FavoriteBooksService favoriteBooksService;
+    private FavoriteBooksService favoriteBooksService;
 
     public FavoriteBooksController(FavoriteBooksService favoriteBooksService) {
         this.favoriteBooksService = favoriteBooksService;
     }
     @GetMapping()
-    public List<FavoriteBook> getFavoriteBookList(){
-
-        return null;
+    public List<FavoriteBook>  getFavoriteBookList(){
+        return favoriteBooksService.getFavoriteBookList();
     }
 
-    @PostMapping("")
+    @PostMapping
+    public FavoriteBook addFavoriteBook(@RequestBody String bookId) {
+        return favoriteBooksService.addToFavoriteBooks(bookId);
+    }
 
-    public FavoriteBook addFavoriteBook(){
-        return null;
+    @PutMapping
+    public String updateFavoriteBookList(){
+        return "update ok";
     }
-    @PutMapping("")
-    public FavoriteBook updateFavoriteBookList(){
-        return null;
-    }
+
     @DeleteMapping()
-
-        public void deleteFavoriteBook(){
-
+        public String deleteFavoriteBook(){
+        return "delete ok";
     }
+
+
 
 }

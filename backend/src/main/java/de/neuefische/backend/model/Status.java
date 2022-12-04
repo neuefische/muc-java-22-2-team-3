@@ -3,7 +3,7 @@ package de.neuefische.backend.model;
 public enum Status {
     READ ("r"),
     READING ("rd"),
-    TOREAD ("tr");
+    TO_READ("tr");
 
     private final String name;
 
