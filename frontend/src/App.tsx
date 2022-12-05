@@ -15,6 +15,7 @@ function App() {
             <Route path={"/books/home"} element={ <Home />}></Route>
             <Route path={"/books"} element={<BookApp />}></Route>
             <Route path={"/books/:id"} element={<BookDetails/>} />
+
         </Routes>
 </BrowserRouter>
 

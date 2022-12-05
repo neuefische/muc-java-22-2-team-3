@@ -6,12 +6,13 @@ import de.neuefische.backend.model.BookDTO;
 import de.neuefische.backend.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("books")
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
 
 
     public BookController(BookService bookService){
@@ -22,7 +23,7 @@ public class BookController {
     public List<Book> getAllBooks(){
         return bookService.getBookList();
     }
-    @GetMapping("/search/")
+    @GetMapping("/search")
     public List<Book> getBook(@RequestParam(name="id", required=false) String id,
                               @RequestParam(name="author", required=false) String author,
                               @RequestParam(name="title", required=false) String keyword,
@@ -39,5 +40,9 @@ public class BookController {
         return bookService.deleteBook(id);
     }
 
+    @GetMapping("/me/favoritebooks/{bookId}")
+    public Book getFavoriteBookDetails(Principal principal, @PathVariable String bookId){
+        return bookService.getBookBy(bookId, null,null,null).get(0);
+    }
 
 }
