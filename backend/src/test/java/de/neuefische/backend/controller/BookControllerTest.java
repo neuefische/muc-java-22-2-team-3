@@ -2,7 +2,6 @@ package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.repository.BooksRepository;
-import de.neuefische.backend.repository.FavoriteBooksRepository;
 import de.neuefische.backend.service.IDGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ class BookControllerTest {
     @Autowired
     BooksRepository bookRepository;
 
-    @Autowired
-    FavoriteBooksRepository favoriteBooksRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -233,3 +230,4 @@ class BookControllerTest {
     }
 
 }
+
