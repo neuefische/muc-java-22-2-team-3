@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -42,37 +43,39 @@ public class UserService implements UserDetailsService {
         return newUser;
     }
 
-    public boolean deleteUser(String id){
+    public List<BookUser> deleteUser(String id){
         try {
             userRepository.deleteById(id);
-            return true;
         }catch(Exception e){
             e.getMessage();
-            return false;
         }
+        return userRepository.findAll();
     }
 
-    public boolean addBookToFavorits(String username, String bookId){
-        String userId = getUserId(username);
-        try{
-            userRepository.findById(userId).orElseThrow().favoriteBookSet().add(bookId);
-            return true;
-        }catch(Exception e){
-            e.getMessage();
-            return false;
-        }
+    public Set<String> addBookToFavorits(String username, String bookId){
+        BookUser user = userRepository.findByUsername(username).orElseThrow();
+
+             Set<String> booksList = user.favoriteBookSet();
+             booksList.add(bookId);
+             userRepository.save(user);
+             return booksList;
     }
 
-    public List<String> getFavoriteBookList(String username) {
-        String userId = getUserId(username);
-       return userRepository.findById(userId).orElseThrow().favoriteBookSet().stream().toList();
+    public Set<String> getFavoriteBookList(String username) {
+       return userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
     }
 
-    public boolean deleteBookFromFavorites(String userId, String bookId) {
-            return userRepository.findByUsername(userId)
-                    .orElseThrow()
-                    .favoriteBookSet()
-                    .remove(bookId);
+    public Set<String> deleteBookFromFavorites(String username, String bookId) {
+
+        BookUser user = userRepository.findByUsername(username).orElseThrow();
+
+        Set<String> booksList = user.favoriteBookSet();
+
+        booksList.remove(bookId);
+
+        userRepository.save(user);
+
+        return booksList;
     }
 
     public String getUserId(String username){
