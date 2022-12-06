@@ -6,15 +6,16 @@ import de.neuefische.backend.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("books/users")
+@RequestMapping("/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService){
         this.userService = userService;
@@ -64,4 +65,12 @@ public class UserController {
     public String login(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
+
+    @PostMapping("logout")
+    public String logout(HttpSession httpSession){
+        httpSession.invalidate();
+        SecurityContextHolder.clearContext();
+        return "anonymousUser";
+    }
+
 }

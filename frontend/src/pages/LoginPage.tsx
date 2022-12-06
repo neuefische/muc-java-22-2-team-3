@@ -1,12 +1,18 @@
 import {ChangeEvent, FormEvent, useState} from "react";
-import axios from "axios";
 import {Button, TextField} from "@mui/material";
 import "../css/LoginPage.css"
+import {useNavigate} from "react-router-dom";
 
-export default function LoginPage(){
+type LoginPageProps = {
+    login: (username: string, password: string) => Promise<string>
+}
+
+export default function LoginPage(props:LoginPageProps){
 
     const [username, setUserName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+
+    const navigate = useNavigate()
 
     function onUsernameChange(event: ChangeEvent<HTMLInputElement>){
         setUserName(event.target.value)
@@ -18,16 +24,14 @@ export default function LoginPage(){
 
 
  function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-     axios.post("/books/users/login", undefined, {
-         auth: {
-             username,
-             password
-         }
-     })
-         .then(response => response.data)
-         .then(data => {console.log(data)})
+     event.preventDefault()
+        props.login(username, password)
+            .then(() => {
+                navigate("/books/favoritebooks")
+            })
+
  }
+
     return (
         <div className={"LoginPage"}>
             <form onSubmit={onSubmit} className={"LoginForm"}>

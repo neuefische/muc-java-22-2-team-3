@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -7,19 +7,21 @@ import Home from './pages/Home';
 import NavigationBar from './pages/NavigationBar';
 import BookDetails from "./components/BookDetails";
 import LoginPage from "./pages/LoginPage";
+import useUser from "./hooks/UseUser";
 
 function App() {
 
-    const[username, setUsername] = useState<string>()
+    const {userName, login, logout} = useUser()
 
   return (
       <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar logout={logout} />
+          <h2>Hallo {userName}!</h2>
         <Routes>
             <Route path={"/books/home"} element={ <Home />}></Route>
             <Route path={"/books"} element={<BookApp />}></Route>
             <Route path={"/books/:id"} element={<BookDetails/>} />
-            <Route path={"/books/users/login"} element={<LoginPage/>} />
+            <Route path={"/users/login"} element={<LoginPage login={login}/>} />
 
         </Routes>
 </BrowserRouter>

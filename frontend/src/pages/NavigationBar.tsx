@@ -1,7 +1,19 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import "../components/NavigationBar.css";
+import {Button} from "@mui/material";
 
-export default function NavigationBar() {
+type NavigationBarProps ={
+    logout: () => Promise<string>
+}
+
+export default function NavigationBar(props: NavigationBarProps) {
+
+    const navigation = useNavigate()
+
+    function logoutButton(){
+        props.logout().then(() =>
+        navigation("/books/home"))
+    }
 
     return (
         <nav className={"nav-bar"}>
@@ -14,11 +26,14 @@ export default function NavigationBar() {
                     <NavLink to={"/books"}>Books</NavLink>
                 </li>
                 <li >
-                    <NavLink to={"/books/favoriten"}>Favoriten</NavLink>
+                    <NavLink to={"/users/me/favoritebooks"}>Favoriten</NavLink>
                 </li>
                 <li >
-                    <NavLink to={"/books/users/login"}>Login</NavLink>
+                    <NavLink to={"/users/login"}>Login</NavLink>
+                </li><li >
+                    <Button onClick={logoutButton} >Logout</Button>
                 </li>
+
             </ul>
         </nav>
     )
