@@ -27,7 +27,10 @@ public class UserController {
     }
 
     @PostMapping()
-    public BookUser addUser(@RequestBody String username, String firstname, String lastname, String password){
+    public BookUser addUser(@RequestParam(name="username") String username,
+                            @RequestParam(name="firstname") String firstname,
+                            @RequestParam(name="lastname") String lastname,
+                            @RequestParam(name="password") String password){
         return userService.addUser(username, firstname, lastname, password);
     }
 
