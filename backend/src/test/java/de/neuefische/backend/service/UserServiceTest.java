@@ -1,18 +1,14 @@
 package de.neuefische.backend.service;
 
-import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 import de.neuefische.backend.repository.UserRepository;
-import org.bouncycastle.jcajce.provider.symmetric.IDEA;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.stubbing.answers.DoesNothing;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.internal.stubbing.answers.DoesNothing.doesNothing;
 
 class UserServiceTest {
 
@@ -77,7 +73,7 @@ class UserServiceTest {
 
         Set<String> newList = new HashSet<>();
 
-        when(userRepository.findByUsername("username")).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
         Set<String> result = userService.getFavoriteBookList("username");
 
         assertEquals(result, newList);
@@ -87,7 +83,7 @@ class UserServiceTest {
     void test_deleteBookFromFavorites() {
         String bookId = (new IDGenerator()).generateID();
 
-        BookUser user = new BookUser("123","username","password","Max", "Mustermann",Set.of(bookId));
+        BookUser user = new BookUser("123","username","password","Max", "Mustermann",new HashSet<>(Set.of(bookId)));
 
         Set<String> newList = new HashSet<>();
 
@@ -104,7 +100,7 @@ class UserServiceTest {
         BookUser user = new BookUser("123","username","password","Max", "Mustermann", new HashSet<>());
         userRepository.save(user);
 
-        when(userRepository.findByUsername("username")).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
 
         String result  = userService.getUserId("username");
 
