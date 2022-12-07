@@ -28,7 +28,7 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,11 +45,6 @@ class UserControllerTest {
 
     @Autowired
     UserRepository userRepository;
-
-    @Mock
-    Principal principal;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @WithMockUser("spring")
     @Test
@@ -175,14 +170,5 @@ class UserControllerTest {
                                 """
                 ));
     }
-    @WithMockUser(username="username")
-    @Test
-    @DirtiesContext
-    void login() {
-    }
-    @WithMockUser(username="username")
-    @Test
-    @DirtiesContext
-    void logout() {
-    }
+
 }
