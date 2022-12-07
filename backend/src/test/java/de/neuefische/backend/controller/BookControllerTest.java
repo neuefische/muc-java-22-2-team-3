@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -65,7 +66,7 @@ class BookControllerTest {
                         "author": "Java",
                         "isbn": "isbn"
                         }
-                        """))
+                        """).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {
@@ -88,7 +89,7 @@ class BookControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                }"""))
+                                }""").with(csrf()))
                 .andExpect(status().isOk());
 
 
