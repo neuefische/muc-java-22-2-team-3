@@ -9,6 +9,8 @@ import BookDetails from "./components/BookDetails";
 import LoginPage from "./pages/LoginPage";
 import useUser from "./hooks/UseUser";
 
+
+
 function App() {
 
     const {userName, login, logout} = useUser()
@@ -20,7 +22,7 @@ function App() {
         <Routes>
             <Route path={"/books/home"} element={ <Home />}></Route>
             <Route path={"/books"} element={<BookApp />}></Route>
-            <Route path={"/books/search/:id"} element={<BookDetails/>} />
+            <Route path={"/books/:id"} element={<BookDetails/>} />
             <Route path={"/users/login"} element={<LoginPage login={login}/>} />
 
         </Routes>

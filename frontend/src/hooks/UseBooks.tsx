@@ -6,7 +6,7 @@ type UseBooksReturn = {
     bookList: BookData[],
     addBook: (book: BookData) => void,
     deleteBook: (id: string) => void,
-    getBookByID: (id: string) => void,
+    // getBookByID: (id: string) => void,
     getBookByISBN: (isbn: string) => void,
     getBookByAuthor: (name: string) => void,
     getBookByKeyword: (keyword: string) => void
@@ -44,24 +44,6 @@ export default function useBooks(): UseBooksReturn{
             .catch(console.error)
     }
 
-    function getBookByID(id: string){
-        axios.get("/books/search/?id=" + id)
-            .then(response => response.data)
-            .then(data => {
-                console.log(data)
-                setBookList(data)
-            })
-            /*            .then(() => {
-                            const filteredBook = bookList.filter(book => {
-                                    return book.id === id
-                                })
-                            if(id){
-                                setBookList(filteredBook)
-                            }
-                        })*/
-            .catch(console.error)
-
-    }
 
     function getBookByKeyword(keyword: string){
         axios.get("/books/search/?title=" + keyword)
@@ -89,5 +71,5 @@ export default function useBooks(): UseBooksReturn{
 
     }
 
-    return {bookList, addBook, deleteBook, getBookByID, getBookByISBN, getBookByAuthor, getBookByKeyword}
+    return {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword}
 }
