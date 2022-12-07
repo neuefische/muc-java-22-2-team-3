@@ -23,7 +23,7 @@ public class BookController {
     public List<Book> getAllBooks(){
         return bookService.getBookList();
     }
-    @GetMapping("/search")
+    @GetMapping("/search/")
     public List<Book> getBook(@RequestParam(name="id", required=false) String id,
                               @RequestParam(name="author", required=false) String author,
                               @RequestParam(name="title", required=false) String keyword,
