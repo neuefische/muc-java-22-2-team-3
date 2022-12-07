@@ -202,32 +202,7 @@ class BookControllerTest {
                         """));
     }
 
-    @DirtiesContext
-    @Test
-    void test_addFavoriteBook() throws Exception {
-        String bookId = "123";
-        Book newBook = new Book();
-        newBook.setId(bookId);
 
-        bookRepository.save(newBook);
-
-        mockMvc.perform(post("/books/favoritebooks/"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                        [{
-                            "id": "123",
-                            "isbn": null,
-                            "title":null,
-                            "subtitle":null,
-                            "author": "null",
-                            "publisher":null,
-                            "pages":0,
-                            "description":null,
-                            "website":null,
-                            "status" : "TO_READ"
-                        }]
-                        """));
-    }
 
 }
 
