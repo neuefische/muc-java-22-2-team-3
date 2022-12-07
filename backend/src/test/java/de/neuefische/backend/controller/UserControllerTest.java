@@ -6,7 +6,6 @@ import de.neuefische.backend.repository.UserRepository;
 
 import org.junit.jupiter.api.Test;
 
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,15 +19,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 
-import java.security.Principal;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -78,7 +77,7 @@ class UserControllerTest {
                         .param("firstname", "firstname")
                         .param("lastname", "lastname")
                         .param("password", "password")
-                )
+                .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                          {
@@ -88,7 +87,8 @@ class UserControllerTest {
                          "password": "password",
                          "favoriteBookSet" : []
                         }
-                         """));
+                         """)
+                );
 
     }
 
@@ -114,7 +114,8 @@ class UserControllerTest {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
                 "lastname", new HashSet());
         userRepository.save(user1);
-        mockMvc.perform(put("/users/me/favoritebooks/123"))
+        mockMvc.perform(put("/users/me/favoritebooks/123")
+                        .with(csrf()))
 
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -149,7 +150,8 @@ class UserControllerTest {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
                 "lastname", new HashSet(Set.of("123")));
         userRepository.save(user1);
-        mockMvc.perform(delete("/users/me/favoritebooks/123"))
+        mockMvc.perform(delete("/users/me/favoritebooks/123")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                                []
@@ -163,7 +165,8 @@ class UserControllerTest {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
                 "lastname", new HashSet());
         userRepository.save(user1);
-        mockMvc.perform(delete("/users/123"))
+        mockMvc.perform(delete("/users/123")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                                []
