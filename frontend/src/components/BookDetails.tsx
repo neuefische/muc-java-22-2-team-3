@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {BookData} from "../model/BookData";
 import axios from "axios";
 
-export default function BookDetails(){
+export default function BookDetails() {
 
     const params = useParams()
 
@@ -11,14 +11,16 @@ export default function BookDetails(){
 
     const [book, setBook] = useState<BookData>()
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        if(id){
+        if (id) {
             getBookDetailsByID()
         }
         //eslint-disable-next-line
-    },[])
+    }, [])
 
-    function getBookDetailsByID(){
+    function getBookDetailsByID() {
 
         axios.get("/books/" + id)
             .then(response => {
@@ -27,8 +29,8 @@ export default function BookDetails(){
             })
     }
 
-    return(
-        <div>{book?
+    return (
+        <div>{book ?
             <section>
                 <h1>{book.title}</h1>
                 Author: {book.author}<br/>
@@ -36,7 +38,9 @@ export default function BookDetails(){
                 Description: {book.description}
             </section>
             : <p>Loading...</p>
+
         }
+            <button onClick={() => navigate(-1)}>Go back</button>
         </div>
     )
 }
