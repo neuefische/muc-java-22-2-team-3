@@ -20,7 +20,7 @@ function App() {
         <Routes>
             <Route path={"/books/home"} element={ <Home />}></Route>
             <Route path={"/books"} element={<BookApp />}></Route>
-            <Route path={"/books/:id"} element={<BookDetails/>} />
+            <Route path={"/books/search/:id"} element={<BookDetails/>} />
             <Route path={"/users/login"} element={<LoginPage login={login}/>} />
 
         </Routes>

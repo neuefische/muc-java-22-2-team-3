@@ -5,7 +5,9 @@ import axios from "axios";
 
 export default function BookDetails(){
 
-    const id = useParams().id
+    const params = useParams()
+
+    const id: string | undefined = params.id
 
     const [book, setBook] = useState<BookData>()
 
@@ -13,8 +15,8 @@ export default function BookDetails(){
         if(id){
             getBookDetailsByID(id)
         }
-        //eslint-disable-next-line
-    },[])
+
+    },[id])
 
     function getBookDetailsByID(id: string){
         axios.get("/books/search/" + id)

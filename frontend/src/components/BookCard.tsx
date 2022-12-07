@@ -13,7 +13,7 @@ export default function BookCard(props:BookCardProps){
         props.deleteBook(props.book.id!)
     }
     function getBookByIDOnClick(){
-        navigate("/books/" + props.book.id)
+        navigate("/books/search/" + props.book.id)
     }
 
     return(
