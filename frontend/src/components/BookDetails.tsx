@@ -13,15 +13,18 @@ export default function BookDetails(){
 
     useEffect(() => {
         if(id){
-            getBookDetailsByID(id)
+            getBookDetailsByID()
         }
+        //eslint-disable-next-line
+    },[])
 
-    },[id])
+    function getBookDetailsByID(){
 
-    function getBookDetailsByID(id: string){
-        axios.get("/books/search/?id=" + id)
-            .then(resolve => resolve.data)
-            .then(setBook)
+        axios.get("/books/" + id)
+            .then(response => {
+                console.log(response.data)
+                setBook(response.data)
+            })
     }
 
     return(

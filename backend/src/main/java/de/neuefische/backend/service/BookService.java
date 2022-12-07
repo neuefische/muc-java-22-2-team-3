@@ -40,12 +40,9 @@ public class BookService {
         return false;
     }
 
-    public List<Book> getBookBy(String id, String name, String keyword, String isbn) {
+    public List<Book> getBookBy(String name, String keyword, String isbn) {
         List<Book> newList = new ArrayList<>();
         List<Book> list = bookRepository.findAll();
-        if (id != null) {
-            newList.add(bookRepository.findById(id).orElseThrow(NoSuchElementException::new));
-        }
         if (name != null) {
             for(Book book: list){
                 if(book.getAuthor().toLowerCase().contains(name.toLowerCase())){
@@ -66,6 +63,10 @@ public class BookService {
             }
         }
         return newList;
+    }
+
+    public Book getBookByID(String bookId){
+        return bookRepository.findById(bookId).orElseThrow(() -> new NoSuchElementException("No such book found"));
     }
 
 }
