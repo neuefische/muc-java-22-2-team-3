@@ -45,9 +45,12 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function getBookByID(id: string){
-        axios.get("/books/?id=" + id)
+        axios.get("/books/search/?id=" + id)
             .then(response => response.data)
-            .then(data => setBookList(data))
+            .then(data => {
+                console.log(data)
+                setBookList(data)
+            })
 /*            .then(() => {
                 const filteredBook = bookList.filter(book => {
                         return book.id === id
@@ -61,43 +64,27 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function getBookByKeyword(keyword: string){
-        axios.get("/books/?title=" + keyword)
+        axios.get("/books/search/?title=" + keyword)
             .then(response => response.data)
-            .then(data => setBookList(data))
-/*            .then(() => {
-                const filteredBookByTitle = bookList.filter(book => {
-                        return book.title.toLowerCase().includes(keyword.toLowerCase())
-                    })
-                setBookList(filteredBookByTitle)
-            })*/
+            .then(data => {
+                setBookList(data)
+            })
             .catch(console.error)
 
     }
 
     function getBookByISBN(isbn: string){
-                const filteredBookByISBN = bookList.filter(book => {
-                        return book.isbn.toLowerCase().includes(isbn.toLowerCase())
-                    })
-                setBookList(filteredBookByISBN)
-
-/*        axios.get("/books/by-isbn/?isbn=" + isbn)
+        axios.get("/books/search/?isbn=" + isbn)
             .then(response => response.data)
             .then(data => setBookList(data))
-            .catch(console.error)*/
+            .catch(console.error)
 
     }
 
     function getBookByAuthor(name: string){
-        axios.get("/books/?author=" + name)
+        axios.get("/books/search/?author=" + name)
             .then(response => response.data)
             .then(data => setBookList(data))
-/*            .then(() => {
-                const filteredBookByAuthor =
-                    bookList.filter(book => {
-                        return book.author.toLowerCase().includes(name.toLowerCase())
-                    })
-                setBookList(filteredBookByAuthor)
-            })*/
             .catch(console.error)
 
     }

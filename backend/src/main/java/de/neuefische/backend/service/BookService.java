@@ -42,11 +42,16 @@ public class BookService {
 
     public List<Book> getBookBy(String id, String name, String keyword, String isbn) {
         List<Book> newList = new ArrayList<>();
+        List<Book> list = bookRepository.findAll();
         if (id != null) {
             newList.add(bookRepository.findById(id).orElseThrow(NoSuchElementException::new));
         }
         if (name != null) {
-            newList = bookRepository.findBooksByAuthor(name);
+            for(Book book: list){
+                if(book.getAuthor().toLowerCase().contains(name.toLowerCase())){
+                    newList.add(book);
+                }
+            }
         }
 
         if (isbn != null) {
@@ -54,9 +59,12 @@ public class BookService {
         }
 
         if (keyword != null) {
-            newList = bookRepository.findBooksByTitle(keyword);
+            for(Book book: list){
+                if(book.getTitle().toLowerCase().contains(keyword.toLowerCase())){
+                    newList.add(book);
+                }
+            }
         }
-
         return newList;
     }
 

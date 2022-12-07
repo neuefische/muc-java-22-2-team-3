@@ -19,15 +19,13 @@ export default function BookDetails(){
     },[id])
 
     function getBookDetailsByID(id: string){
-        axios.get("/books/search/" + id)
-            .then(response => response.data)
-            .then(data => {
-                setBook(data)
-            })
+        axios.get("/books/search/?id=" + id)
+            .then(resolve => resolve.data)
+            .then(setBook)
     }
 
     return(
-        <>{book?
+        <div>{book?
             <section>
             <h1>{book.title}</h1>
                 Author: {book.author}<br/>
@@ -36,6 +34,6 @@ export default function BookDetails(){
             </section>
             : <p>Loading...</p>
         }
-        </>
+        </div>
     )
 }
