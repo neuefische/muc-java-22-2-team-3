@@ -20,13 +20,14 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
     },[])
 
     function getAllBooks() {
-        axios.get("/users/me/favorites").then(response=>response.data).then(data=> {
+        axios.get("/users/me/favoritebooks/").then(response=>response.data).then(data=> {
+            console.log(data)
             setBookList(data)
         })
     }
 
     function deleteBook(deletedId: string){
-        axios.delete("/users/me/favorites" + deletedId)
+        axios.delete("/users/me/favoritebooks/" + deletedId)
             .then(()=>{
                 const newList = bookList.filter((book: BookData)=>
                     book.id!==deletedId)

@@ -1,6 +1,8 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
+import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,8 @@ import static org.mockito.Mockito.*;
 class UserServiceTest {
 
     UserRepository userRepository= mock(UserRepository.class);
-    UserService userService = new UserService(userRepository);
+    BooksRepository booksRepository=mock(BooksRepository.class);
+    UserService userService = new UserService(userRepository, booksRepository);
 
 @DirtiesContext
     @Test
@@ -74,10 +77,10 @@ class UserServiceTest {
         BookUser user = new BookUser("123","username","password","Max", "Mustermann", new HashSet<>());
         userRepository.save(user);
 
-        Set<String> newList = new HashSet<>();
+        List<Book> newList = new ArrayList<>();
 
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
-        Set<String> result = userService.getFavoriteBookList("username");
+        List<Book> result = userService.getFavoriteBookList("username");
 
         assertEquals(result, newList);
     }

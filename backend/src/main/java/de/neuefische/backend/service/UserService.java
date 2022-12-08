@@ -1,8 +1,10 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 
 import de.neuefische.backend.model.BookUserDTO;
+import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,9 +20,11 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private IDGenerator idGenerator= new IDGenerator();
+    private BooksRepository booksRepository;
 
-    public UserService(UserRepository userRepo){
+    public UserService(UserRepository userRepo, BooksRepository booksRepo){
         this.userRepository = userRepo;
+        this.booksRepository = booksRepo;
     }
 
     @Override
@@ -58,20 +59,22 @@ public class UserService implements UserDetailsService {
     public Set<String> addBookToFavorits(String username, String bookId){
         BookUser user = userRepository.findByUsername(username).orElseThrow();
         Set<String> booksList = user.favoriteBookSet();
-        Optional<Set<String>> ol = Optional.of(booksList);
-
-        if(!ol.isPresent()){
-            Set<String> newList = new HashSet<>();
-            booksList = newList;
-        }
 
         booksList.add(bookId);
              userRepository.save(user);
              return booksList;
     }
 
-    public Set<String> getFavoriteBookList(String username) {
-       return userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
+    public List<Book> getFavoriteBookList(String username) {
+       Set<String> idList = userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
+
+       List<Book> bookList = new ArrayList<>();
+
+       for(String id: idList){
+           Book book = booksRepository.findById(id).orElseThrow();
+           bookList.add(book);
+       }
+       return bookList;
     }
 
     public Set<String> deleteBookFromFavorites(String username, String bookId) {
@@ -92,6 +95,4 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found!"))
                 .id();
     }
-
-
 }

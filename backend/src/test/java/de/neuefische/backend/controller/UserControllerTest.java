@@ -1,7 +1,9 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 
+import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.repository.UserRepository;
 
 import org.junit.jupiter.api.Test;
@@ -44,6 +46,9 @@ class UserControllerTest {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BooksRepository booksRepository;
 
     @WithMockUser("spring")
     @Test
@@ -101,16 +106,46 @@ class UserControllerTest {
     @WithMockUser(username = "username")
     @Test
     @DirtiesContext
-    void getFavoriteBooks() throws Exception {
+    void getFavoriteBooks_whenListEmpty() throws Exception {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
                 "lastname", new HashSet<>());
         userRepository.save(user1);
+
         mockMvc.perform(get("/users/me/favoritebooks/"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                                []
                                 """
                         ));
+    }
+    @WithMockUser(username = "username")
+    @Test
+    @DirtiesContext
+    void test_getFavoriteBooks() throws Exception {
+        Book book = new Book("1", "title","author","isbn");
+        booksRepository.save(book);
+        BookUser user1 = new BookUser("123", "username", "password", "firstname",
+                "lastname", new HashSet<>(Set.of(book.getId())));
+        userRepository.save(user1);
+
+
+
+        mockMvc.perform(get("/users/me/favoritebooks/"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                               [{
+                            "id": "1",
+                            "isbn": "isbn",
+                            "title": "title",
+                            "subtitle":null,
+                            "author": "author",
+                            "publisher":null,
+                            "pages":0,
+                            "description":null,
+                            "website":null
+                        }]
+                                """
+                ));
     }
 
     @WithMockUser(username="username")
