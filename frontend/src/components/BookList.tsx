@@ -4,13 +4,13 @@ import BookCard from "./BookCard";
 type BookListProps={
     bookList:BookData[],
     deleteBook(id: string): void
-    onSubmitAddToFavorites(id:string): void
+    addBookToFavorites(bookId: string): void
+
 }
 export default function BookList(props:BookListProps){
     const getBookList=
          props.bookList.map((book)=>{
-                 return <BookCard book={book} deleteBook={props.deleteBook}
-                                  key={book.id} onSubmitAddToFavorites={props.onSubmitAddToFavorites}/>;}
+                 return <BookCard book={book} deleteBook={props.deleteBook} addBookToFavorites={props.addBookToFavorites} key={book.id} />;}
          )
     return(
         <div>
