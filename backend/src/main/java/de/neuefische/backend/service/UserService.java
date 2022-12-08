@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -56,9 +57,15 @@ public class UserService implements UserDetailsService {
 
     public Set<String> addBookToFavorits(String username, String bookId){
         BookUser user = userRepository.findByUsername(username).orElseThrow();
+        Set<String> booksList = user.favoriteBookSet();
+        Optional<Set<String>> ol = Optional.of(booksList);
 
-             Set<String> booksList = user.favoriteBookSet();
-             booksList.add(bookId);
+        if(!ol.isPresent()){
+            Set<String> newList = new HashSet<>();
+            booksList = newList;
+        }
+
+        booksList.add(bookId);
              userRepository.save(user);
              return booksList;
     }

@@ -8,6 +8,7 @@ import BookDetails from "./components/BookDetails";
 import LoginPage from "./pages/LoginPage";
 import useUser from "./hooks/UseUser";
 import SignUp from './components/SignUp';
+import FavoriteBooksApp from "./components/FavoriteBooksApp";
 
 
 
@@ -25,7 +26,7 @@ function App() {
             <Route path={"/books/:id"} element={<BookDetails/>} />
             <Route path={"/users/login"} element={<LoginPage login={login}/>} />
             <Route path={"/users/signup"} element={<SignUp addUser={addUser}  />} />
-
+            <Route path={"/users/me/favorites"} element={<FavoriteBooksApp/>}/>
         </Routes>
 </BrowserRouter>
 

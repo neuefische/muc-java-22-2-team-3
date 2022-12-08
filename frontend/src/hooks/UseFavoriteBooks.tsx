@@ -2,41 +2,31 @@ import {useEffect, useState} from "react";
 import {BookData} from "../model/BookData";
 import axios from "axios";
 
-type UseBooksReturn = {
+type UseFavoriteBooksReturn = {
     bookList: BookData[],
-    addBook: (book: BookData) => void,
     deleteBook: (id: string) => void,
-    // getBookByID: (id: string) => void,
     getBookByISBN: (isbn: string) => void,
     getBookByAuthor: (name: string) => void,
-    getBookByKeyword: (keyword: string) => void
-    addBookToFavorites: (bookId: string) => void
+    getBookByKeyword: (keyword: string) => void,
+    updateBookStatus: (bookId: string) => void
 }
 
-export default function useBooks(): UseBooksReturn{
+export default function useFavoriteBooks(): UseFavoriteBooksReturn{
     const [bookList,setBookList]=useState<BookData[]>([])
+
 
     useEffect(() => {
         getAllBooks()
     },[])
 
     function getAllBooks() {
-        axios.get("/books").then(response=>response.data).then(data=> {
+        axios.get("/users/me/favorites").then(response=>response.data).then(data=> {
             setBookList(data)
         })
     }
 
-    function addBook(newBook: BookData){
-        axios.post("/books/", newBook).then(savedBook =>{
-            setBookList((prevState)=>{
-                return [...prevState, savedBook.data]
-            })
-        })
-            .catch(console.error)
-    }
-
     function deleteBook(deletedId: string){
-        axios.delete("/books/" + deletedId)
+        axios.delete("/users/me/favorites" + deletedId)
             .then(()=>{
                 const newList = bookList.filter((book: BookData)=>
                     book.id!==deletedId)
@@ -72,10 +62,9 @@ export default function useBooks(): UseBooksReturn{
 
     }
 
-    function addBookToFavorites(id: string){
-        axios.put("users/me/favoritebooks/" + id)
-            .then(response => response.data)
+    function updateBookStatus(bookId: string){
+
     }
 
-    return {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, addBookToFavorites}
+    return {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, updateBookStatus}
 }

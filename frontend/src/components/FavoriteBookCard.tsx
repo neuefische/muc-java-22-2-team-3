@@ -3,13 +3,13 @@ import React from "react";
 import "../css/BookCard.css"
 import {useNavigate} from "react-router-dom";
 
-type BookCardProps={
+type FavoriteBookCardProps={
     book:BookData,
     deleteBook(id: string): void
-    addBookToFavorites(id: string): void
+    updateStatus(id: string): void
 }
 
-export default function BookCard(props:BookCardProps){
+export default function FavoriteBookCard(props: FavoriteBookCardProps){
     const navigate = useNavigate()
 
     function deleteBook(){
@@ -19,8 +19,8 @@ export default function BookCard(props:BookCardProps){
         navigate("/books/" + props.book.id)
     }
 
-    function addBookIdOnClick(){
-        props.addBookToFavorites(props.book.id!)
+    function updateBookStatus(){
+        props.updateStatus(props.book.id!)
     }
 
 
@@ -31,7 +31,7 @@ export default function BookCard(props:BookCardProps){
             <p>{props.book.isbn}</p>
             <button onClick={getBookByIDOnClick} className={"Details"} >Details</button>
             <button onClick={deleteBook} className={"Delete"}>Delete</button>
-            <button onClick={addBookIdOnClick} className={"Favorites"}>To favorites</button>
+            <button onClick={updateBookStatus} className={"Favorites"}>Status update</button>
         </div>
 
     )
