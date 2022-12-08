@@ -26,11 +26,9 @@ function App() {
             <Route path={"/books/:id"} element={<BookDetails/>} />
             <Route path={"/users/login"} element={<LoginPage login={login}/>} />
             <Route path={"/users/signup"} element={<SignUp addUser={addUser}  />} />
-            <Route path={"/users/me/favorites"} element={<FavoriteBooksApp/>}/>
+            <Route path={"/users/me/favoritebooks"} element={<FavoriteBooksApp/>}/>
         </Routes>
 </BrowserRouter>
-
-
   );
 }
 

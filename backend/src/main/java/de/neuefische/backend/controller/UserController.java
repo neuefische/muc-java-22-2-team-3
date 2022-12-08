@@ -1,7 +1,5 @@
 package de.neuefische.backend.controller;
-
-
-
+import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.service.UserService;
@@ -43,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/me/favoritebooks/")
-    public Set<String> getFavoriteBooks(Principal principal){
+    public List<Book> getFavoriteBooks(Principal principal){
         return userService.getFavoriteBookList(principal.getName());
     }
 

@@ -27,7 +27,7 @@ export default function LoginPage(props:LoginPageProps){
      event.preventDefault()
         props.login(username, password)
             .then(() => {
-                navigate("/books/favoritebooks")
+                navigate("/books/")
             })
 
  }
