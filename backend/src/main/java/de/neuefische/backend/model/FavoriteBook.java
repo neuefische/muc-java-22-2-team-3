@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FavoriteBook{
     Status status;
-    Book book;
-
+    String id;
 }

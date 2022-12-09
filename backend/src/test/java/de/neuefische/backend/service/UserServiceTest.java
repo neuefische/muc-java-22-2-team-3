@@ -2,6 +2,8 @@ package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
+import de.neuefische.backend.model.FavoriteBook;
+import de.neuefische.backend.model.Status;
 import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.repository.UserRepository;
@@ -59,15 +61,16 @@ class UserServiceTest {
     @Test
     void test_addBookToFavorits() {
         String bookId = (new IDGenerator()).generateID();
+        FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, bookId);
 
         BookUser user = new BookUser("123","username","password","Max", "Mustermann", new HashSet<>());
 
-        Set<String> newList = new HashSet<>();
-        newList.add(bookId);
+        Set<FavoriteBook> newList = new HashSet<>();
+        newList.add(newFavBook);
 
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
 
-        Set<String> result = userService.addBookToFavorits("username",bookId);
+        Set<FavoriteBook> result = userService.addBookToFavorits("username",bookId);
 
         assertEquals(result, newList);
     }
@@ -88,14 +91,15 @@ class UserServiceTest {
     @Test
     void test_deleteBookFromFavorites() {
         String bookId = (new IDGenerator()).generateID();
+        FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, bookId);
 
-        BookUser user = new BookUser("123","username","password","Max", "Mustermann",new HashSet<>(Set.of(bookId)));
+        BookUser user = new BookUser("123","username","password","Max", "Mustermann",new HashSet<>(Set.of(newFavBook)));
 
         Set<String> newList = new HashSet<>();
 
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
 
-        Set<String> result = userService.deleteBookFromFavorites("username",bookId);
+        Set<FavoriteBook> result = userService.deleteBookFromFavorites("username",bookId);
 
         assertEquals(result, newList);
 

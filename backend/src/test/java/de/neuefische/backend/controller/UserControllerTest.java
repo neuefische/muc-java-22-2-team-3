@@ -3,6 +3,8 @@ package de.neuefische.backend.controller;
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 
+import de.neuefische.backend.model.FavoriteBook;
+import de.neuefische.backend.model.Status;
 import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.repository.UserRepository;
 
@@ -124,8 +126,9 @@ class UserControllerTest {
     void test_getFavoriteBooks() throws Exception {
         Book book = new Book("1", "title","author","isbn");
         booksRepository.save(book);
+        FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, book.getId());
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet<>(Set.of(book.getId())));
+                "lastname", new HashSet<>(Set.of(newFavBook)));
         userRepository.save(user1);
 
 
