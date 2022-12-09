@@ -75,7 +75,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/users/signup/")
                         .contentType(MediaType.APPLICATION_JSON).content("""
-                        {"id": "123",
+                        {
                         "username": "username",
                         "password": "password",
                         "firstname": "firstname",
