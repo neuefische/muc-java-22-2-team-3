@@ -163,7 +163,10 @@ class UserControllerTest {
 
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                               ["123"]
+                               [{
+                               "status" : "TO_READ",
+                               "id" : "123"
+                               }]
                                 """
                 ));
 
