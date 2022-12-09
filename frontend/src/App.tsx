@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-
 import BookApp from "./components/BookApp";
 import Home from './pages/Home';
 import NavigationBar from './pages/NavigationBar';
@@ -14,7 +13,7 @@ import SignUp from './components/SignUp';
 
 function App() {
 
-    const {userName, login, logout} = useUser()
+    const {userName, login, logout, addUser} = useUser()
 
   return (
       <BrowserRouter>
@@ -25,7 +24,7 @@ function App() {
             <Route path={"/books"} element={<BookApp />}></Route>
             <Route path={"/books/:id"} element={<BookDetails/>} />
             <Route path={"/users/login"} element={<LoginPage login={login}/>} />
-            <Route path={"/users/signup"} element={<SignUp />} />
+            <Route path={"/users/signup"} element={<SignUp addUser={addUser}  />} />
 
         </Routes>
 </BrowserRouter>

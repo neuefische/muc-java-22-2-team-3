@@ -3,41 +3,86 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import { LoginData } from '../model/LoginData';
 
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Typography component="h1" variant="h5">
-                Team 3
-            </Typography>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const theme = createTheme();
+type SignUpProps = {
+    addUser(newUser: LoginData): void;
+}
 
-export default function SignUp() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get('username'),
-            password: data.get('password'),
-        });
+export default function SignUp(props: SignUpProps) {
+
+    const emptyInput: LoginData = {
+        "username": "",
+        "password": "",
+        "firstname": "",
+        "lastname": ""
+    }
 
 
+    const[submitted, setSubmitted] = useState<boolean>(false);
+    const[error, setError] = useState<boolean>(false);
+
+    const [inputValue, setInputValue] = useState(emptyInput)
+
+    useEffect(()=>{
+
+    }, [inputValue])
+
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault()
+        if(inputValue.username === "" || inputValue.password === ""){
+            setError(true);
+        }else
+        {
+            setSubmitted(true);
+            setError(false);
+            props.addUser(inputValue)
+            setInputValue(emptyInput)
+        }
+
+    }
+
+    function handleOnChange(event: ChangeEvent<HTMLInputElement>){
+        const fieldName = event.target.name
+        const fieldValue = event.target.value
+
+        setInputValue(prevState => ({
+            ...prevState, [fieldName]: fieldValue
+        }))
+    }
+
+
+
+
+    const successMessage = () => {
+        return (
+            <div
+                className="success"
+                style={{
+                    display: submitted ? '' : 'none',
+                }}>
+                <h1>User {inputValue.username} successfully registered!!</h1>
+            </div>
+        );
+    };
+    const errorMessage = () => {
+        return (
+            <div
+                className="error"
+                style={{
+                    display: error ? '' : 'none',
+                }}>
+                <h1>Please enter all the fields</h1>
+            </div>
+        );
     };
 
     return (
@@ -58,27 +103,35 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
+                    <div className="messages">
+                        {errorMessage()}
+                        {successMessage()}
+                    </div>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
                                     name="firstName"
-                                    required
+
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    value={inputValue.firstname}
+                                    onChange ={handleOnChange}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
+
                                     fullWidth
                                     id="lastName"
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    value={inputValue.lastname}
+                                    onChange ={handleOnChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -89,6 +142,8 @@ export default function SignUp() {
                                     label="Username"
                                     name="username"
                                     autoComplete="username"
+                                    value={inputValue.username}
+                                    onChange ={handleOnChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -100,6 +155,8 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={inputValue.password}
+                                    onChange ={handleOnChange}
                                 />
                             </Grid>
 
@@ -109,13 +166,21 @@ export default function SignUp() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+
                         >
                             Sign Up
                         </Button>
 
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
+                <Typography variant="body2" color="text.secondary" align="center" {...props}>
+                    {'Copyright © '}
+                    <Typography component="h1" variant="h5">
+                        Team 3
+                    </Typography>{' '}
+                    {new Date().getFullYear()}
+                    {'.'}
+                </Typography>
             </Container>
         </ThemeProvider>
     );
