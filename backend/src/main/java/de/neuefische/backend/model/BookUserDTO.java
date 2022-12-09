@@ -6,5 +6,5 @@ public record BookUserDTO(String username,
                           String password,
                           String firstname,
                           String lastname,
-                          Set<String> favoriteBookSet) {
+                          Set<FavoriteBook> favoriteBookSet) {
 }
