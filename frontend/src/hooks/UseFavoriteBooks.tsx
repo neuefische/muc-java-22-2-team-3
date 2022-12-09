@@ -9,7 +9,6 @@ type UseFavoriteBooksReturn = {
     getBookByAuthor: (name: string) => void,
     getBookByKeyword: (keyword: string) => void,
     // updateBookStatus: (bookId: string) => void
-    // getBookStatus: (bookId: string) => string
 }
 
 export default function useFavoriteBooks(): UseFavoriteBooksReturn{
@@ -22,7 +21,6 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
 
     function getAllBooks() {
         axios.get("/users/me/favoritebooks/").then(response=>response.data).then(data=> {
-            console.log(data)
             setBookList(data)
         })
     }
@@ -72,15 +70,6 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
 
     }
 
-    function getBookStatus(bookId: string){
-
-        axios.get("/users/me/favoritebooks/"+ bookId)
-            .then(response => response.data)
-            .then(data => {
-                return data
-            })
-            .catch(console.error)
-    }
 
     return {
         bookList,
@@ -89,6 +78,5 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
         getBookByAuthor,
         getBookByKeyword,
         // updateBookStatus,
-        // getBookStatus
     }
 }

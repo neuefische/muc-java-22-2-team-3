@@ -1,29 +1,30 @@
 import {BookData} from "../model/BookData";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../css/BookCard.css"
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 type FavoriteBookCardProps={
     book:BookData,
-    // bookStatus(id: string): string
     deleteBook(id: string): void
     // updateStatus(id: string): void
 }
 
 export default function FavoriteBookCard(props: FavoriteBookCardProps){
+    const [bookStatus, setBookStatus] = useState("")
 
-    const params = useParams()
-
-    const id: string | undefined = params.id
+    useEffect(() => {
+        getStatus()
+    },[])
 
     const navigate = useNavigate()
 
     function deleteBook(){
-        props.deleteBook(id!)
+        props.deleteBook(props.book.id!)
     }
     function getBookByIDOnClick(){
-        navigate("/books/" + id)
+        navigate("/books/" + props.book.id!)
     }
 
 /*    function updateBookStatus(){
@@ -31,13 +32,18 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
     }*/
 
 
+    function getStatus(){
+        axios.get("/users/me/favoritebooks/" + props.book.id!)
+            .then(response => response.data)
+            .then(setBookStatus)
+    }
 
     return(
         <div className={"BookClass"}>
             <p className={"Title"}>{props.book.title}</p>
             <p>{props.book.author}</p>
             <p>{props.book.isbn}</p>
-            <p>Status</p>
+            <p>{bookStatus}</p>
             <button onClick={getBookByIDOnClick} className={"Details"} >Details</button>
             <button onClick={deleteBook} className={"Delete"}>Delete</button>
             {/*onClick = {updateBookStatus}*/}

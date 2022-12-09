@@ -5,7 +5,6 @@ type FavoriteBookListProps={
     bookList:BookData[],
     deleteBook(id: string): void
     // updateStatus(bookId: string): void
-    // getBookStatus(bookId: string | undefined): string
 
 }
 export default function FavoriteBookList(props: FavoriteBookListProps){
@@ -15,9 +14,7 @@ export default function FavoriteBookList(props: FavoriteBookListProps){
                                      deleteBook={props.deleteBook}
                                      key={book.id}
                                      // updateStatus={props.updateStatus}
-            />
-
-             // bookStatus={props.getBookStatus}/>;
+                                    />
         }
         )
     return(
