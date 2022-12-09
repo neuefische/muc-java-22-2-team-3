@@ -13,7 +13,7 @@ public record BookUser(
         String password,
         String firstname,
         String lastname,
-        Set<String> favoriteBookSet)
+        Set<FavoriteBook> favoriteBookSet)
  {
 }
 

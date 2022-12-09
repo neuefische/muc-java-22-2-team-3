@@ -3,6 +3,8 @@ package de.neuefische.backend.service;
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 
+import de.neuefische.backend.model.FavoriteBook;
+import de.neuefische.backend.model.Status;
 import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.repository.UserRepository;
@@ -56,34 +58,52 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public Set<String> addBookToFavorits(String username, String bookId){
+    public Set<FavoriteBook> addBookToFavorits(String username, String bookId){
         BookUser user = userRepository.findByUsername(username).orElseThrow();
-        Set<String> booksList = user.favoriteBookSet();
-
-        booksList.add(bookId);
-             userRepository.save(user);
-             return booksList;
+        Set<FavoriteBook> booksList = user.favoriteBookSet();
+        FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, bookId);
+        Optional<Set<FavoriteBook>> optionalFavoriteBooks = Optional.of(booksList);
+        if(!optionalFavoriteBooks.isPresent()){
+            booksList = new HashSet<>();
+        }
+        booksList.add(newFavBook);
+        userRepository.save(user);
+        return booksList;
     }
 
     public List<Book> getFavoriteBookList(String username) {
-       Set<String> idList = userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
+       Set<FavoriteBook> idList = userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
 
        List<Book> bookList = new ArrayList<>();
 
-       for(String id: idList){
-           Book book = booksRepository.findById(id).orElseThrow();
+       for(FavoriteBook favBook: idList){
+           Book book = booksRepository.findById(favBook.getId()).orElseThrow();
            bookList.add(book);
        }
        return bookList;
     }
+    public Status getBookStatus(String username, String bookId) {
+        Set<FavoriteBook> booksList = userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
 
-    public Set<String> deleteBookFromFavorites(String username, String bookId) {
+        for(FavoriteBook book: booksList){
+            if(book.getId().equals(bookId)){
+                return book.getStatus();
+            }
+        }
+        return Status.READ;
+    }
+
+    public Set<FavoriteBook> deleteBookFromFavorites(String username, String bookId) {
 
         BookUser user = userRepository.findByUsername(username).orElseThrow();
 
-        Set<String> booksList = user.favoriteBookSet();
+        Set<FavoriteBook> booksList = user.favoriteBookSet();
 
-        booksList.remove(bookId);
+        for(FavoriteBook favBook: booksList){
+            if(favBook.getId().equals(bookId)){
+                booksList.remove(favBook);
+            }
+        }
 
         userRepository.save(user);
 
@@ -95,4 +115,57 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found!"))
                 .id();
     }
+
+    public Set<FavoriteBook> updateBookStatus(String username, String bookId){
+        BookUser user = userRepository.findByUsername(username).orElseThrow();
+        Set<FavoriteBook> booksList = user.favoriteBookSet();
+        Status status;
+        for(FavoriteBook book: booksList){
+            if(book.getId().equals(bookId)){
+                status = book.getStatus();
+                if(status.equals(Status.TO_READ)){
+                    status = Status.READING;
+                }
+                else{
+                    status = Status.READ;
+                }
+                book.setStatus(status);
+            }
+        }
+        userRepository.save(user);
+        return booksList;
+    }
+
+    public List<Book> getBookBy(String username, String name, String keyword, String isbn) {
+        List<Book> newList = new ArrayList<>();
+        Set<FavoriteBook> favoriteBookSet = userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
+
+        List<Book> list = new ArrayList<>();
+
+        for(FavoriteBook favBook: favoriteBookSet){
+            list.add(booksRepository.findById(favBook.getId()).orElseThrow());
+        }
+
+        if (name != null) {
+            for(Book book: list){
+                if(book.getAuthor().toLowerCase().contains(name.toLowerCase())){
+                    newList.add(book);
+                }
+            }
+        }
+
+        if (isbn != null) {
+            newList.add(booksRepository.findBookByIsbn(isbn));
+        }
+
+        if (keyword != null) {
+            for(Book book: list){
+                if(book.getTitle().toLowerCase().contains(keyword.toLowerCase())){
+                    newList.add(book);
+                }
+            }
+        }
+        return newList;
+    }
+
 }

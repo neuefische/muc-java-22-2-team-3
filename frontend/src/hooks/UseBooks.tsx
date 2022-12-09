@@ -73,8 +73,8 @@ export default function useBooks(): UseBooksReturn{
     }
 
     function addBookToFavorites(id: string){
-        axios.put("users/me/favoritebooks/" + id)
-            .then(response => response.data)
+        axios.put("/users/me/favoritebooks/" + id)
+            .catch(console.error)
     }
 
     return {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, addBookToFavorites}

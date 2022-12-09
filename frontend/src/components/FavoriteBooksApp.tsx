@@ -6,8 +6,8 @@ import FavoriteBooksList from "./FavoriteBooksList";
 
 
 export default function FavoriteBooksApp() {
-
-    const {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, updateBookStatus} = useFavoriteBooks();
+    //, updateBookStatus, getBookStatus
+    const {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword} = useFavoriteBooks();
 
     return (
 
@@ -22,13 +22,16 @@ export default function FavoriteBooksApp() {
                 </tr>
                 </thead>
             </table>
-            <FavoriteBooksList bookList={bookList} deleteBook={deleteBook} updateStatus={updateBookStatus}/><br/>
+            <FavoriteBooksList bookList={bookList}
+                               deleteBook={deleteBook}
+                               // updateStatus={updateBookStatus}
+                               // getBookStatus={getBookStatus}
+            /><br/>
             <div className={"InputFields"}>
                 <SearchForTitle inputFieldValue={getBookByKeyword}/><br/>
                 <SearchForAuthor inputFieldValue={getBookByAuthor}/><br/>
                 <SearchForISBN inputFieldValue={getBookByISBN}/><br/>
             </div>
         </section>
-
     )
 }

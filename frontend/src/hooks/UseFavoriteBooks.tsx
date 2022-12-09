@@ -8,7 +8,8 @@ type UseFavoriteBooksReturn = {
     getBookByISBN: (isbn: string) => void,
     getBookByAuthor: (name: string) => void,
     getBookByKeyword: (keyword: string) => void,
-    updateBookStatus: (bookId: string) => void
+    // updateBookStatus: (bookId: string) => void
+    // getBookStatus: (bookId: string) => string
 }
 
 export default function useFavoriteBooks(): UseFavoriteBooksReturn{
@@ -38,7 +39,7 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
 
 
     function getBookByKeyword(keyword: string){
-        axios.get("/books/search/?title=" + keyword)
+        axios.get("/users/me/favoritebooks/search/?title=" + keyword)
             .then(response => response.data)
             .then(data => {
                 setBookList(data)
@@ -48,7 +49,7 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
     }
 
     function getBookByISBN(isbn: string){
-        axios.get("/books/search/?isbn=" + isbn)
+        axios.get("/users/me/favoritebooks/search/?isbn=" + isbn)
             .then(response => response.data)
             .then(data => setBookList(data))
             .catch(console.error)
@@ -56,7 +57,7 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
     }
 
     function getBookByAuthor(name: string){
-        axios.get("/books/search/?author=" + name)
+        axios.get("/users/me/favoritebooks/search/?author=" + name)
             .then(response => response.data)
             .then(data => setBookList(data))
             .catch(console.error)
@@ -64,8 +65,30 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
     }
 
     function updateBookStatus(bookId: string){
+        axios.put("/me/favoritebooks/update/" + bookId)
+            .then(response => response.data)
+            .then(data => setBookList(data))
+            .catch(console.error)
 
     }
 
-    return {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, updateBookStatus}
+    function getBookStatus(bookId: string){
+
+        axios.get("/users/me/favoritebooks/"+ bookId)
+            .then(response => response.data)
+            .then(data => {
+                return data
+            })
+            .catch(console.error)
+    }
+
+    return {
+        bookList,
+        deleteBook,
+        getBookByISBN,
+        getBookByAuthor,
+        getBookByKeyword,
+        // updateBookStatus,
+        // getBookStatus
+    }
 }

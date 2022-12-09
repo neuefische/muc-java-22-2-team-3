@@ -2,6 +2,9 @@ package de.neuefische.backend.controller;
 import de.neuefische.backend.model.Book;
 import de.neuefische.backend.model.BookUser;
 import de.neuefische.backend.model.BookUserDTO;
+
+import de.neuefische.backend.model.FavoriteBook;
+import de.neuefische.backend.model.Status;
 import de.neuefische.backend.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -45,13 +48,26 @@ public class UserController {
         return userService.getFavoriteBookList(principal.getName());
     }
 
+    @GetMapping("/me/favoritebooks/search/")
+    public List<Book> getBook(Principal principal,
+            @RequestParam(name="author", required=false) String author,
+            @RequestParam(name="title", required=false) String keyword,
+            @RequestParam(name="isbn", required=false) String isbn){
+        return userService.getBookBy(principal.getName(), author, keyword, isbn);
+    }
+
     @PutMapping("/me/favoritebooks/{bookId}")
-    public Set<String> addBookToFavorites(Principal principal, @PathVariable String bookId){
+    public Set<FavoriteBook> addBookToFavorites(Principal principal, @PathVariable String bookId){
         return userService.addBookToFavorits(principal.getName(),bookId);
     }
 
+    @PutMapping("/me/favoritebooks/update/{bookId}")
+    public Set<FavoriteBook> updateBookStatus(Principal principal, @PathVariable String bookId){
+        return userService.updateBookStatus(principal.getName(), bookId);
+    }
+
     @DeleteMapping("/me/favoritebooks/{bookId}")
-    public Set<String> deleteBookFromFavorites(Principal principal, @PathVariable String bookId){
+    public Set<FavoriteBook> deleteBookFromFavorites(Principal principal, @PathVariable String bookId){
         return userService.deleteBookFromFavorites(principal.getName(),bookId);
     }
 
