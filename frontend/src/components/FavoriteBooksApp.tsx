@@ -6,8 +6,8 @@ import FavoriteBooksList from "./FavoriteBooksList";
 
 
 export default function FavoriteBooksApp() {
-    //, updateBookStatus
-    const {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword} = useFavoriteBooks();
+    //
+    const {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, updateBookStatus} = useFavoriteBooks();
 
     return (
 
@@ -24,7 +24,7 @@ export default function FavoriteBooksApp() {
             </table>
             <FavoriteBooksList bookList={bookList}
                                deleteBook={deleteBook}
-                               // updateStatus={updateBookStatus}
+                               updateStatus={updateBookStatus}
             /><br/>
             <div className={"InputFields"}>
                 <SearchForTitle inputFieldValue={getBookByKeyword}/><br/>

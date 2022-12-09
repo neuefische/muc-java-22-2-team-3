@@ -8,7 +8,7 @@ type UseFavoriteBooksReturn = {
     getBookByISBN: (isbn: string) => void,
     getBookByAuthor: (name: string) => void,
     getBookByKeyword: (keyword: string) => void,
-    // updateBookStatus: (bookId: string) => void
+    updateBookStatus: (bookId: string) => void
 }
 
 export default function useFavoriteBooks(): UseFavoriteBooksReturn{
@@ -63,9 +63,7 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
     }
 
     function updateBookStatus(bookId: string){
-        axios.put("/me/favoritebooks/update/" + bookId)
-            .then(response => response.data)
-            .then(data => setBookList(data))
+        axios.put("/users/me/favoritebooks/update/" + bookId)
             .catch(console.error)
 
     }
@@ -77,6 +75,6 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
         getBookByISBN,
         getBookByAuthor,
         getBookByKeyword,
-        // updateBookStatus,
+        updateBookStatus,
     }
 }
