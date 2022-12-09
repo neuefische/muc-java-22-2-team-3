@@ -62,10 +62,7 @@ public class UserService implements UserDetailsService {
         BookUser user = userRepository.findByUsername(username).orElseThrow();
         Set<FavoriteBook> booksList = user.favoriteBookSet();
         FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, bookId);
-        Optional<Set<FavoriteBook>> optionalFavoriteBooks = Optional.of(booksList);
-        if(!optionalFavoriteBooks.isPresent()){
-            booksList = new HashSet<>();
-        }
+
         booksList.add(newFavBook);
         userRepository.save(user);
         return booksList;
