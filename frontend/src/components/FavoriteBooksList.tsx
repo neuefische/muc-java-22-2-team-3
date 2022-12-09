@@ -4,7 +4,7 @@ import FavoriteBookCard from "./FavoriteBookCard";
 type FavoriteBookListProps={
     bookList:BookData[],
     deleteBook(id: string): void
-    // updateStatus(bookId: string): void
+    updateStatus(bookId: string): void
 
 }
 export default function FavoriteBookList(props: FavoriteBookListProps){
@@ -13,7 +13,7 @@ export default function FavoriteBookList(props: FavoriteBookListProps){
             return <FavoriteBookCard book={book}
                                      deleteBook={props.deleteBook}
                                      key={book.id}
-                                     // updateStatus={props.updateStatus}
+                                     updateStatus={props.updateStatus}
                                     />
         }
         )

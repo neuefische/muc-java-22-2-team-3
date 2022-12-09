@@ -8,7 +8,7 @@ import axios from "axios";
 type FavoriteBookCardProps={
     book:BookData,
     deleteBook(id: string): void
-    // updateStatus(id: string): void
+    updateStatus(id: string): void
 }
 
 export default function FavoriteBookCard(props: FavoriteBookCardProps){
@@ -16,6 +16,7 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
 
     useEffect(() => {
         getStatus()
+        //eslint-disable-next-line
     },[])
 
     const navigate = useNavigate()
@@ -27,9 +28,10 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
         navigate("/books/" + props.book.id!)
     }
 
-/*    function updateBookStatus(){
-        props.updateStatus(id!)
-    }*/
+    function updateBookStatus(){
+            props.updateStatus(props.book.id!)
+        getStatus()
+    }
 
 
     function getStatus(){
@@ -37,6 +39,7 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
             .then(response => response.data)
             .then(setBookStatus)
     }
+
 
     return(
         <div className={"BookClass"}>
@@ -46,8 +49,7 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
             <p>{bookStatus}</p>
             <button onClick={getBookByIDOnClick} className={"Details"} >Details</button>
             <button onClick={deleteBook} className={"Delete"}>Delete</button>
-            {/*onClick = {updateBookStatus}*/}
-            <button className={"Favorites"}>Status update</button>
+            <button onClick = {updateBookStatus} className={"Favorites"} >Status update</button>
         </div>
 
     )
