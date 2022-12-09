@@ -3,6 +3,7 @@ package de.neuefische.backend.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Document("BookUser")
@@ -13,7 +14,7 @@ public record BookUser(
         String password,
         String firstname,
         String lastname,
-        Set<String> favoriteBookSet
-) {
+        Set<String> favoriteBookSet)
+ {
 }
 

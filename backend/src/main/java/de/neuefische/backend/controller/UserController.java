@@ -27,11 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/signup/")
-    public BookUser addUser(@RequestParam(name="username") String username,
-                            @RequestParam(name="firstname") String firstname,
-                            @RequestParam(name="lastname") String lastname,
-                            @RequestParam(name="password") String password){
-        return userService.addUser(username, firstname, lastname, password);
+    public BookUser addUser(@RequestBody BookUser bookUser){
+        return userService.addUser(bookUser);
     }
 
     @GetMapping("me")

@@ -36,9 +36,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public BookUser addUser(String username, String firstname, String lastname, String password){
+    public BookUser addUser(BookUser bookUser){
         String userId = idGenerator.generateID();
-        BookUser newUser = new BookUser(userId, username, password, firstname,  lastname, new HashSet<>());
+        BookUser newUser = new BookUser(userId, bookUser.username(), bookUser.password(),
+                bookUser.firstname(), bookUser.lastname(), bookUser.favoriteBookSet());
         userRepository.save(newUser);
         return newUser;
     }
@@ -83,4 +84,6 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found!"))
                 .id();
     }
+
+
 }
