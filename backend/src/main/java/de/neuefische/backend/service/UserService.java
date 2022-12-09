@@ -2,6 +2,7 @@ package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.BookUser;
 
+import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,7 +37,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public BookUser addUser(BookUser bookUser){
+    public BookUser addUser(BookUserDTO bookUser){
         String userId = idGenerator.generateID();
         BookUser newUser = new BookUser(userId, bookUser.username(), bookUser.password(),
                 bookUser.firstname(), bookUser.lastname(), bookUser.favoriteBookSet());

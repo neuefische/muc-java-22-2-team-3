@@ -1,7 +1,9 @@
 package de.neuefische.backend.controller;
 
-import de.neuefische.backend.model.BookUser;
 
+
+import de.neuefische.backend.model.BookUser;
+import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/signup/")
-    public BookUser addUser(@RequestBody BookUser bookUser){
-        return userService.addUser(bookUser);
+    public BookUser addUser(@RequestBody BookUserDTO bookUserDTO){
+        return userService.addUser(bookUserDTO);
     }
 
     @GetMapping("me")

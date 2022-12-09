@@ -169,7 +169,7 @@ class UserControllerTest {
     @DirtiesContext
     void deleteUser() throws Exception {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet());
+                "lastname", new HashSet<>());
         userRepository.save(user1);
         mockMvc.perform(delete("/users/123")
                         .with(csrf()))
