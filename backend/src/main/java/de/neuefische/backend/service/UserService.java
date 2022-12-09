@@ -93,7 +93,7 @@ public class UserService implements UserDetailsService {
         return Status.READ;
     }
 
-    public Set<FavoriteBook> deleteBookFromFavorites(String username, String bookId) {
+    public List<Book> deleteBookFromFavorites(String username, String bookId) {
 
         BookUser user = userRepository.findByUsername(username).orElseThrow();
 
@@ -107,7 +107,7 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
 
-        return booksList;
+        return getFavoriteBookList(username);
     }
 
     public String getUserId(String username){
@@ -116,10 +116,10 @@ public class UserService implements UserDetailsService {
                 .id();
     }
 
-    public Set<FavoriteBook> updateBookStatus(String username, String bookId){
+    public Status updateBookStatus(String username, String bookId){
         BookUser user = userRepository.findByUsername(username).orElseThrow();
         Set<FavoriteBook> booksList = user.favoriteBookSet();
-        Status status;
+        Status status = Status.READ;
         for(FavoriteBook book: booksList){
             if(book.getId().equals(bookId)){
                 status = book.getStatus();
@@ -133,7 +133,7 @@ public class UserService implements UserDetailsService {
             }
         }
         userRepository.save(user);
-        return booksList;
+        return status;
     }
 
     public List<Book> getBookBy(String username, String name, String keyword, String isbn) {

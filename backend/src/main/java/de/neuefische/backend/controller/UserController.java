@@ -62,12 +62,12 @@ public class UserController {
     }
 
     @PutMapping("/me/favoritebooks/update/{bookId}")
-    public Set<FavoriteBook> updateBookStatus(Principal principal, @PathVariable String bookId){
+    public Status updateBookStatus(Principal principal, @PathVariable String bookId){
         return userService.updateBookStatus(principal.getName(), bookId);
     }
 
     @DeleteMapping("/me/favoritebooks/{bookId}")
-    public Set<FavoriteBook> deleteBookFromFavorites(Principal principal, @PathVariable String bookId){
+    public List<Book> deleteBookFromFavorites(Principal principal, @PathVariable String bookId){
         return userService.deleteBookFromFavorites(principal.getName(),bookId);
     }
 
