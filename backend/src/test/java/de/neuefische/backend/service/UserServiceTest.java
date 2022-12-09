@@ -32,7 +32,7 @@ class UserServiceTest {
         BookUser user = new BookUser("123","username","password","Max", "Mustermann", new HashSet<>());
 
         when(userRepository.save(user)).thenReturn(user);
-        BookUser result = userService.addUser("username","Max","Mustermann","password");
+        BookUser result = userService.addUser(user);
 
         assertEquals(result.username(), user.username());
     }
