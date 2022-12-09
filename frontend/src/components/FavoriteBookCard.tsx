@@ -8,7 +8,7 @@ import axios from "axios";
 type FavoriteBookCardProps={
     book:BookData,
     deleteBook(id: string): void
-    updateStatus(id: string): void
+    updateStatus(id: string): Promise<string>
 }
 
 export default function FavoriteBookCard(props: FavoriteBookCardProps){
@@ -30,16 +30,17 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
 
     function updateBookStatus(){
             props.updateStatus(props.book.id!)
-        getStatus()
+                .then(data => {
+                    setBookStatus(data)
+                })
     }
-
 
     function getStatus(){
         axios.get("/users/me/favoritebooks/" + props.book.id!)
             .then(response => response.data)
-            .then(setBookStatus)
-    }
+            .then(data => setBookStatus(data))
 
+    }
 
     return(
         <div className={"BookClass"}>

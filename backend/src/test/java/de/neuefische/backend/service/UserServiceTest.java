@@ -95,11 +95,11 @@ class UserServiceTest {
 
         BookUser user = new BookUser("123","username","password","Max", "Mustermann",new HashSet<>(Set.of(newFavBook)));
 
-        Set<String> newList = new HashSet<>();
+        List<Book> newList = new ArrayList<>();
 
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
 
-        Set<FavoriteBook> result = userService.deleteBookFromFavorites("username",bookId);
+        List<Book> result = userService.deleteBookFromFavorites("username",bookId);
 
         assertEquals(result, newList);
 

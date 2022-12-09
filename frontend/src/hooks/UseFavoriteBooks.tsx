@@ -8,7 +8,7 @@ type UseFavoriteBooksReturn = {
     getBookByISBN: (isbn: string) => void,
     getBookByAuthor: (name: string) => void,
     getBookByKeyword: (keyword: string) => void,
-    updateBookStatus: (bookId: string) => void
+    updateBookStatus: (bookId: string) => Promise<string>
 }
 
 export default function useFavoriteBooks(): UseFavoriteBooksReturn{
@@ -27,10 +27,10 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
 
     function deleteBook(deletedId: string){
         axios.delete("/users/me/favoritebooks/" + deletedId)
-            .then(()=>{
-                const newList = bookList.filter((book: BookData)=>
-                    book.id!==deletedId)
-                setBookList(newList)
+            .then(response => response.data)
+            .then(data => {
+                console.log(data)
+                setBookList(data)
             })
             .catch(console.error)
     }
@@ -62,10 +62,13 @@ export default function useFavoriteBooks(): UseFavoriteBooksReturn{
 
     }
 
-    function updateBookStatus(bookId: string){
-        axios.put("/users/me/favoritebooks/update/" + bookId)
+    function updateBookStatus(bookId: string): Promise<string>{
+        return axios.put("/users/me/favoritebooks/update/" + bookId)
+            .then(response => response.data)
+            .then(data => {
+                return data
+            })
             .catch(console.error)
-
     }
 
 

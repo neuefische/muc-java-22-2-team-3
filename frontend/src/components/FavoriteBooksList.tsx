@@ -4,7 +4,7 @@ import FavoriteBookCard from "./FavoriteBookCard";
 type FavoriteBookListProps={
     bookList:BookData[],
     deleteBook(id: string): void
-    updateStatus(bookId: string): void
+    updateStatus(bookId: string): Promise<string>
 
 }
 export default function FavoriteBookList(props: FavoriteBookListProps){
