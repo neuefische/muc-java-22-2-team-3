@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -50,7 +50,7 @@ class UserControllerTest {
     @DirtiesContext
     void getAllUser() throws Exception {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet());
+                "lastname", new HashSet<>());
         userRepository.save(user1);
         mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
@@ -66,17 +66,23 @@ class UserControllerTest {
 
     }
 
-    @WithMockUser()
+    @WithMockUser(username = "username")
     @Test
     @DirtiesContext
     void addUser() throws Exception {
 
 
-        mockMvc.perform(post("/users")
-                        .param("username", "username")
-                        .param("firstname", "firstname")
-                        .param("lastname", "lastname")
-                        .param("password", "password")
+
+        mockMvc.perform(post("/users/signup/")
+                        .contentType(MediaType.APPLICATION_JSON).content("""
+                        {
+                        "username": "username",
+                        "password": "password",
+                        "firstname": "firstname",
+                        "lastname": "lastname",
+                        "favoriteBookSet":[]}
+                        """)
+
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -97,7 +103,7 @@ class UserControllerTest {
     @DirtiesContext
     void getFavoriteBooks() throws Exception {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet());
+                "lastname", new HashSet<>());
         userRepository.save(user1);
         mockMvc.perform(get("/users/me/favoritebooks/"))
                 .andExpect(status().isOk())
@@ -112,7 +118,7 @@ class UserControllerTest {
     @DirtiesContext
     void addBookToFavorites() throws Exception{
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet());
+                "lastname", new HashSet<>());
         userRepository.save(user1);
         mockMvc.perform(put("/users/me/favoritebooks/123")
                         .with(csrf()))
@@ -148,7 +154,7 @@ class UserControllerTest {
     @DirtiesContext
     void deleteBookFromFavorites() throws Exception {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet(Set.of("123")));
+                "lastname", new HashSet<>(Set.of("123")));
         userRepository.save(user1);
         mockMvc.perform(delete("/users/me/favoritebooks/123")
                         .with(csrf()))
@@ -163,7 +169,7 @@ class UserControllerTest {
     @DirtiesContext
     void deleteUser() throws Exception {
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet());
+                "lastname", new HashSet<>());
         userRepository.save(user1);
         mockMvc.perform(delete("/users/123")
                         .with(csrf()))

@@ -30,7 +30,11 @@ export default function NavigationBar(props: NavigationBarProps) {
                 </li>
                 <li >
                     <NavLink to={"/users/login"}>Login</NavLink>
-                </li><li >
+                </li>
+                <li >
+                    <NavLink to={"/users/signup"}>Sign Up</NavLink>
+                </li>
+                <li >
                     <Button onClick={logoutButton} >Logout</Button>
                 </li>
 

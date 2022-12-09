@@ -1,6 +1,7 @@
 package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.BookUser;
+import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
@@ -29,10 +30,12 @@ class UserServiceTest {
     @DirtiesContext
     @Test
     void test_addUser() {
-        BookUser user = new BookUser("123","username","password","Max", "Mustermann", new HashSet<>());
 
-        when(userRepository.save(user)).thenReturn(user);
-        BookUser result = userService.addUser("username","Max","Mustermann","password");
+        BookUserDTO user = new BookUserDTO("username","password","Max", "Mustermann", new HashSet<>());
+        BookUser bookUser = new BookUser("123", user.username(), user.password(),
+                user.firstname(), user.lastname(), user.favoriteBookSet());
+        when(userRepository.save(bookUser)).thenReturn(bookUser);
+        BookUser result = userService.addUser(user);
 
         assertEquals(result.username(), user.username());
     }
