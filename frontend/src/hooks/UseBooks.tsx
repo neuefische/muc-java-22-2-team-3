@@ -10,10 +10,12 @@ type UseBooksReturn = {
     getBookByISBN: (isbn: string) => void,
     getBookByAuthor: (name: string) => void,
     getBookByKeyword: (keyword: string) => void
+    onSubmitAddToFavorites(id:string): void
 }
 
 export default function useBooks(): UseBooksReturn{
     const [bookList,setBookList]=useState<BookData[]>([])
+    const [idFavoriteBook, setIdFavoriteBook] = useState<string>()
 
     useEffect(() => {
         getAllBooks()
@@ -70,6 +72,11 @@ export default function useBooks(): UseBooksReturn{
             .catch(console.error)
 
     }
+    function onSubmitAddToFavorites(id: string){
+        axios.put("users/me/favoritebooks/" + id)
+            .then(response => response.data)
+            .then(data => setIdFavoriteBook(data))
+    }
 
-    return {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword}
+    return {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, onSubmitAddToFavorites}
 }

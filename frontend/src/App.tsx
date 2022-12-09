@@ -8,6 +8,7 @@ import NavigationBar from './pages/NavigationBar';
 import BookDetails from "./components/BookDetails";
 import LoginPage from "./pages/LoginPage";
 import useUser from "./hooks/UseUser";
+import SignUp from './components/SignUp';
 
 
 
@@ -24,6 +25,7 @@ function App() {
             <Route path={"/books"} element={<BookApp />}></Route>
             <Route path={"/books/:id"} element={<BookDetails/>} />
             <Route path={"/users/login"} element={<LoginPage login={login}/>} />
+            <Route path={"/users/signup"} element={<SignUp />} />
 
         </Routes>
 </BrowserRouter>
