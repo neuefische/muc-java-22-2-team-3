@@ -194,8 +194,10 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void deleteBookFromFavorites() throws Exception {
+        Set<FavoriteBook> favoriteBookSet = new HashSet<>();
+        favoriteBookSet.add(new FavoriteBook(Status.TO_READ,"123"));
         BookUser user1 = new BookUser("123", "username", "password", "firstname",
-                "lastname", new HashSet<>(Set.of("123")));
+                "lastname", favoriteBookSet);
         userRepository.save(user1);
         mockMvc.perform(delete("/users/me/favoritebooks/123")
                         .with(csrf()))
