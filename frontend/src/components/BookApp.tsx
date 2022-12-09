@@ -1,5 +1,4 @@
 import BookList from "./BookList";
-import AddBook from "./AddBook";
 import SearchForTitle from "./SearchForTitle";
 import SearchForISBN from "./SearchForISBN";
 import SearchForAuthor from "./SearchForAuthor";
@@ -7,7 +6,7 @@ import UseBooks from "../hooks/UseBooks";
 
 export default function BookApp() {
 
-    const {bookList, addBook, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, addBookToFavorites} = UseBooks();
+    const {bookList, deleteBook, getBookByISBN, getBookByAuthor, getBookByKeyword, addBookToFavorites} = UseBooks();
 
     return (
 
@@ -27,7 +26,6 @@ export default function BookApp() {
             <SearchForTitle inputFieldValue={getBookByKeyword}/><br/>
             <SearchForAuthor inputFieldValue={getBookByAuthor}/><br/>
             <SearchForISBN inputFieldValue={getBookByISBN}/><br/>
-            <AddBook addBook={addBook} />
             </div>
         </section>
 
