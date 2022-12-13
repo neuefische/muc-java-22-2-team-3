@@ -2,13 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {BookData} from "../model/BookData";
 import axios from "axios";
-import { Button } from "@mui/material";
-
-
 
 export default function BookDetails() {
-
-
 
     const params = useParams()
 

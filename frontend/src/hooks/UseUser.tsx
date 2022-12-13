@@ -7,18 +7,13 @@ import { LoginData } from "../model/LoginData";
 export default function useUser(){
 
      const [userName, setUserName] = useState<string>()
-    const [userList,setUserList]=useState<LoginData[]>([])
 
     useEffect(()=> {
         axios.get("/users/me")
             .then(response => response.data)
             .then(setUserName)
     }, [])
-    useEffect(()=> {
-        axios.get("/users")
-            .then(response => response.data)
-            .then(data => setUserList(data))
-    }, [])
+
 
  function login(username: string, password: string){
 
@@ -45,11 +40,11 @@ export default function useUser(){
  }
 function addUser(newUser: LoginData){
          axios.post("/users/signup/", newUser)
-             .then(savedUser=>{
+/*             .then(savedUser=>{
                  setUserList((prevState)=>{
                      return [...prevState, savedUser.data]
                  })
-             })
+             })*/
              .catch(console.error)
 }
 
