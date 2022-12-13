@@ -14,7 +14,7 @@ import { LoginData } from '../model/LoginData';
 
 const theme = createTheme();
 type SignUpProps = {
-    addUser(newUser: LoginData): void;
+    adduser(newUser: LoginData): void;
 }
 
 export default function SignUp(props: SignUpProps) {
@@ -44,7 +44,7 @@ export default function SignUp(props: SignUpProps) {
         {
             setSubmitted(true);
             setError(false);
-            props.addUser(inputValue)
+            props.adduser(inputValue)
             setInputValue(emptyInput)
         }
 
@@ -112,8 +112,8 @@ export default function SignUp(props: SignUpProps) {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
-
+                                    name="firstname"
+                                    required
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
@@ -124,11 +124,11 @@ export default function SignUp(props: SignUpProps) {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-
+                                    required
                                     fullWidth
                                     id="lastName"
                                     label="Last Name"
-                                    name="lastName"
+                                    name="lastname"
                                     autoComplete="family-name"
                                     value={inputValue.lastname}
                                     onChange ={handleOnChange}
