@@ -12,7 +12,7 @@ type FavoriteBookCardProps={
 }
 
 export default function FavoriteBookCard(props: FavoriteBookCardProps){
-    const [bookStatus, setBookStatus] = useState("")
+    const [bookStatus, setBookStatus] = useState("To read")
 
     useEffect(() => {
         getStatus()
@@ -36,7 +36,7 @@ export default function FavoriteBookCard(props: FavoriteBookCardProps){
     }
 
     function getStatus(){
-        axios.get("/users/me/favoritebooks/" + props.book.id!)
+        axios.get("/users/me/favoritebooks/status/" + props.book.id!)
             .then(response => response.data)
             .then(data => setBookStatus(data))
 

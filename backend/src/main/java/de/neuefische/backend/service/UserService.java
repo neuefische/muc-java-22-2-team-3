@@ -82,15 +82,17 @@ public class UserService implements UserDetailsService {
        }
        return bookList;
     }
+
+
     public Status getBookStatus(String username, String bookId) {
         Set<FavoriteBook> booksList = userRepository.findByUsername(username).orElseThrow().favoriteBookSet();
-
+        Status status = Status.READ;
         for(FavoriteBook book: booksList){
             if(book.getId().equals(bookId)){
-                return book.getStatus();
+                status = book.getStatus();
             }
         }
-        return Status.READ;
+        return status;
     }
 
     public List<Book> deleteBookFromFavorites(String username, String bookId) {
@@ -99,15 +101,19 @@ public class UserService implements UserDetailsService {
 
         Set<FavoriteBook> booksList = user.favoriteBookSet();
 
-        for(FavoriteBook favBook: booksList){
-            if(favBook.getId().equals(bookId)){
-                booksList.remove(favBook);
+        Iterator<FavoriteBook> favoriteBookIterator = booksList.iterator();
+
+        while(favoriteBookIterator.hasNext()){
+            FavoriteBook book = favoriteBookIterator.next();
+            if(book.getId().equals(bookId)){
+                favoriteBookIterator.remove();
             }
         }
 
         userRepository.save(user);
 
         return getFavoriteBookList(username);
+
     }
 
     public String getUserId(String username){

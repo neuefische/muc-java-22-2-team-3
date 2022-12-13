@@ -48,6 +48,12 @@ public class UserController {
         return userService.getFavoriteBookList(principal.getName());
     }
 
+    @GetMapping("/me/favoritebooks/status/{bookId}")
+    public String getBookStatus(Principal principal, @PathVariable String bookId){
+        return userService.getBookStatus(principal.getName(), bookId).name();
+    }
+
+
     @GetMapping("/me/favoritebooks/search/")
     public List<Book> getBook(Principal principal,
             @RequestParam(name="author", required=false) String author,

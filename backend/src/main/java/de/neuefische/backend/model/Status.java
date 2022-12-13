@@ -1,9 +1,9 @@
 package de.neuefische.backend.model;
 
 public enum Status {
-    READ ("r"),
-    READING ("rd"),
-    TO_READ("tr");
+    READ ("read"),
+    READING ("reading"),
+    TO_READ("to read");
 
     private final String name;
 

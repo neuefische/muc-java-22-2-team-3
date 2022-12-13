@@ -91,16 +91,23 @@ class UserServiceTest {
     @DirtiesContext
     @Test
     void test_deleteBookFromFavorites() {
-        String bookId = (new IDGenerator()).generateID();
-        FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, bookId);
+        //String bookId = (new IDGenerator()).generateID();
+        FavoriteBook newFavBook = new FavoriteBook(Status.TO_READ, "bookId1");
+        FavoriteBook newFavBook2 = new FavoriteBook(Status.TO_READ, "bookId2");
+        Book newBook = new Book("bookId2","","","");
+        //booksRepository.save(newBook);
 
-        BookUser user = new BookUser("123","username","password","Max", "Mustermann",new HashSet<>(Set.of(newFavBook)));
+
+        BookUser user = new BookUser("123","username","password","Max", "Mustermann",
+                new HashSet<>(Set.of(newFavBook, newFavBook2)));
 
         List<Book> newList = new ArrayList<>();
+        newList.add(newBook);
 
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
+        when(booksRepository.findById("bookId2")).thenReturn(Optional.of(newBook));
 
-        List<Book> result = userService.deleteBookFromFavorites("username",bookId);
+        List<Book> result = userService.deleteBookFromFavorites("username","bookId1");
 
         assertEquals(result, newList);
 
@@ -116,6 +123,25 @@ class UserServiceTest {
         String result  = userService.getUserId("username");
 
         assertEquals("123", result);
+
+    }
+
+    @DirtiesContext
+    @Test
+    void test_getBookStatus() {
+
+        Set<FavoriteBook> newList = new HashSet<>();
+        FavoriteBook favoriteBook = new FavoriteBook(Status.TO_READ,"1");
+        newList.add(favoriteBook);
+        BookUser user = new BookUser("123","username","password","Max", "Mustermann", newList);
+
+        userRepository.save(user);
+
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
+
+        Status result  = userService.getBookStatus("username","1");
+
+        assertEquals(Status.TO_READ, result);
 
     }
 }

@@ -219,4 +219,22 @@ class UserControllerTest {
                 ));
     }
 
+    @WithMockUser(username="username")
+    @Test
+    @DirtiesContext
+    void test_getBookStatus() throws Exception {
+        Set<FavoriteBook> favoriteBookSet = new HashSet<>();
+        FavoriteBook favoriteBook = new FavoriteBook(Status.TO_READ, "1");
+        favoriteBookSet.add(favoriteBook);
+
+        BookUser user1 = new BookUser("123", "username", "password", "firstname",
+                "lastname", favoriteBookSet);
+        userRepository.save(user1);
+
+        mockMvc.perform(get("/users/me/favoritebooks/status/1")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().string(Status.TO_READ.name()));
+    }
+
 }
