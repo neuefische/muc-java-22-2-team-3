@@ -43,8 +43,9 @@ public class UserService implements UserDetailsService {
 
     public BookUser addUser(BookUserDTO bookUser){
         String userId = idGenerator.generateID();
+        Set<FavoriteBook> newBookList= new HashSet<>();
         BookUser newUser = new BookUser(userId, bookUser.username(), bookUser.password(),
-                bookUser.firstname(), bookUser.lastname(), bookUser.favoriteBookSet());
+                bookUser.firstname(), bookUser.lastname(), newBookList);
         userRepository.save(newUser);
         return newUser;
     }
