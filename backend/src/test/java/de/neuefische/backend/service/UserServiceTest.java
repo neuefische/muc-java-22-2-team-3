@@ -8,6 +8,7 @@ import de.neuefische.backend.repository.BooksRepository;
 import de.neuefische.backend.model.BookUserDTO;
 import de.neuefische.backend.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.*;
@@ -35,9 +36,9 @@ class UserServiceTest {
     @DirtiesContext
     @Test
     void test_addUser() {
-
+        String password = new Argon2PasswordEncoder().encode("password");
         BookUserDTO user = new BookUserDTO("username","password","Max", "Mustermann", new HashSet<>());
-        BookUser bookUser = new BookUser("123", user.username(), user.password(),
+        BookUser bookUser = new BookUser("123", user.username(), password,
                 user.firstname(), user.lastname(), user.favoriteBookSet());
         when(userRepository.save(bookUser)).thenReturn(bookUser);
         BookUser result = userService.addUser(user);

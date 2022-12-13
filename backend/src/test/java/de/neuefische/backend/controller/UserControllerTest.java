@@ -77,19 +77,16 @@ class UserControllerTest {
     @Test
     @DirtiesContext
     void addUser() throws Exception {
-
-
-
         mockMvc.perform(post("/users/signup/")
                         .contentType(MediaType.APPLICATION_JSON).content("""
                         {
                         "username": "username",
-                        "password": "password",
+                        "password" : "password",
                         "firstname": "firstname",
                         "lastname": "lastname",
-                        "favoriteBookSet":[]}
+                        "favoriteBookSet":[]
+                        }
                         """)
-
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -97,7 +94,6 @@ class UserControllerTest {
                          "username": "username",
                          "firstname": "firstname",
                          "lastname": "lastname",
-                         "password": "password",
                          "favoriteBookSet" : []
                         }
                          """)
