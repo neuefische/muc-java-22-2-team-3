@@ -29,6 +29,5 @@ public class SecurityConfig {
                 .antMatchers("/books/favoriten").authenticated()
                 .antMatchers("/").permitAll()
                 .and().build();
-
     }
 }

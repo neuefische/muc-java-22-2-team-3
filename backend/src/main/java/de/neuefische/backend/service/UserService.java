@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -43,8 +44,9 @@ public class UserService implements UserDetailsService {
 
     public BookUser addUser(BookUserDTO bookUser){
         String userId = idGenerator.generateID();
+        String password = new Argon2PasswordEncoder().encode(bookUser.password());
         Set<FavoriteBook> newBookList= new HashSet<>();
-        BookUser newUser = new BookUser(userId, bookUser.username(), bookUser.password(),
+        BookUser newUser = new BookUser(userId, bookUser.username(), password,
                 bookUser.firstname(), bookUser.lastname(), newBookList);
         userRepository.save(newUser);
         return newUser;
